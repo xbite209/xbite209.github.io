@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>安卓 on 浮游笔记</title>
+    <link>https://fffou.com/tags/%E5%AE%89%E5%8D%93/</link>
+    <description>Recent content in 安卓 on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 05 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/%E5%AE%89%E5%8D%93/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>安卓通过iptables屏蔽ip</title>
+      <link>https://fffou.com/post/199501/</link>
+      <pubDate>Thu, 05 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/199501/</guid>
+      <description>&lt;p&gt;现在的手机的可玩性是越来越完善了，各种小功能。当然，功能完善了，广告也就跟上去了。广告也变得越来越人性化，位置摆放的合合理理，该关心你的时候就弹出通知问候你，你买完手机就热情的推荐你买手机壳。跟别人聊会天，说要去某城，各种应用推荐我某城的吃喝玩乐。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>安卓主流手机输入法对各双拼方案支持与兼容情况总结</title>
+      <link>https://fffou.com/post/1982901/</link>
+      <pubDate>Wed, 28 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/1982901/</guid>
+      <description>&lt;p&gt;前个星期去朋友家玩，看到他操作电脑打字，击键少且输入挺快，以为是五笔输入法，问之，后面他告诉我这是用的双拼输入，并提示我如果有拼音基础很容易入门，突然就把我的兴趣提前来了。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

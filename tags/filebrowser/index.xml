@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>filebrowser on 浮游笔记</title>
+    <link>https://fffou.com/tags/filebrowser/</link>
+    <description>Recent content in filebrowser on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 05 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/filebrowser/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nginx利用filebrowser管理vps中的文件</title>
+      <link>https://fffou.com/post/20010501/</link>
+      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/20010501/</guid>
+      <description>站点环境用的是LNMP一键包，并没有像大家一样用宝塔、AMH之类的面板程序，一来是因为vps配置较低，二来用一键包个人认为比较安全，但是遇到需要管理vps中的文件的时候就比较麻烦。不过还好，可以配合filebrowser管理vps的文件。
+filebrowser 功能介绍 filebrowser是用Go语言开发的文件管理器，不需要第三方地依赖，除了配合Nginx、Apache、Caddy等Web服务器使用外，也可单独作为Web文件管理器使用，功能上支持简单的音视频播放，分享文件方面提供永久链接或临时链接（按时、分、秒）进行分享，并支持在下载页面展示当前下载页面的二维码，非常实用。站长我喜欢用filebrowser编辑一些配置文件，避免了了SSH终端用vi编辑文件的痛苦。
+安装filebrowser 前面说了filebrowser的功能，现在是分享搭建filebrowser的步骤，我用的linux环境是Debian 64位系统，所以这里以Debian 64位系统作为本文的系统基础，大家可做做参考。
+1.切换到home目录
+ cd /home  2.SSh连接vps，访问filebrowse托管平台github的releases 页面，下载对应系统版本的filebrowser文件，并解压文件。
+ wget https://github.com/filebrowser/filebrowser/releases/download/v2.0.16/linux-amd64-filebrowser.tar.gz tar -xzvf linux-amd64-filebrowser.tar.gz  3.赋予filebrowser运行权限
+ chmod +x ./filebrowser  4.指定端口运行一遍filebrowser，这样filebrowser就会在同目录下生成同名配置文件filebrowser.db。因为Nginx占用了80、433端口，所以这里我指定了其他端口，你可以按照自己的需求指定自己的端口，本文以25557端口为例
+ ./filebrowser -p 25557 -a 0.0.0.0  5.访问filebrowser，并更改默认的密码，默认账户密码皆为admin
+ http://ip:25557  6.终止filebrowser运行
+ CTRL+C  7.设置filebrowser为系统服务
+ cat &amp;lt;&amp;lt; EOF &amp;gt; /lib/systemd/system/filebrowser.service  8.接着输入下列配置
+ [Unit] Description=Filebrowser Client Service After=network.target [Service] Type=simple Restart=always RestartSec=5s ExecStart=/home/filebrowser -p 25557 -a 0.0.0.0 ExecReload=/home/filebrowser reload -p 25557 -a 0.</description>
+    </item>
+    
+  </channel>
+</rss>

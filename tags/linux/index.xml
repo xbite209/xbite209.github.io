@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on 浮游笔记</title>
+    <link>https://fffou.com/tags/linux/</link>
+    <description>Recent content in linux on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 14 Jul 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>开源Os--Deepin Os</title>
+      <link>https://fffou.com/post/167141/</link>
+      <pubDate>Thu, 14 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/167141/</guid>
+      <description>&lt;p&gt;Deepin是一个开源的国产os，经过几年的发展已经有一些实用的价值，值得我们这些爱折腾的玩家入手了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>深度文件管理器</title>
+      <link>https://fffou.com/post/167142/</link>
+      <pubDate>Thu, 14 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/167142/</guid>
+      <description>&lt;p&gt;大家知道linux的文件结构和windows下是完全不同的，然而我们自接触电脑就深深被win的资源管理器所影响，往往大多数新手都不能很好的适应linux文件管理的操作方式。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

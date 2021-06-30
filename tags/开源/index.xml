@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>开源 on 浮游笔记</title>
+    <link>https://fffou.com/tags/%E5%BC%80%E6%BA%90/</link>
+    <description>Recent content in 开源 on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 14 Jul 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/%E5%BC%80%E6%BA%90/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>开源Os--Deepin Os</title>
+      <link>https://fffou.com/post/167141/</link>
+      <pubDate>Thu, 14 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/167141/</guid>
+      <description>&lt;p&gt;Deepin是一个开源的国产os，经过几年的发展已经有一些实用的价值，值得我们这些爱折腾的玩家入手了。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

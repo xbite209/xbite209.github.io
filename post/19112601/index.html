@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="dns-prefetch" href="//creativecommons.org" />
+<link rel="dns-prefetch" href="//www.w3.org/" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="Keywords" content="浮游,浮游笔记,笔记,博客,记录">
+    <meta name="description" content="专注于思考、记录与分享">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#e0c684">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="如何判断头条搜索的蜘蛛是否真实">
+<meta itemprop="description" content="前段时间今日头条推出自己的搜索引擎产品：头条搜索  ，用了一下各方面还是不错，但是并没有放在心上，一是因为只有手机页面，域名还比较长，懒得输入；二是有些功能还不算完善；三是因为不确定这个搜索产品会不会被头条中途腰斩。后面又稍微关注了一下，是因为一部分小站被头条的爬虫给爬死了，让一部分站长苦不堪言，在网上发了一些牢骚。后面也就没怎么关注了，终其原因是没有看到头条搜索的爬虫官网和文档说明，网上能找到的信息屈指可数。">
+
+
+<meta itemprop="datePublished" content="2019-11-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-11-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="36">
+
+
+
+<meta itemprop="keywords" content="头条,搜索,爬虫,蜘蛛," />
+<meta property="og:title" content="如何判断头条搜索的蜘蛛是否真实" />
+<meta property="og:description" content="前段时间今日头条推出自己的搜索引擎产品：头条搜索  ，用了一下各方面还是不错，但是并没有放在心上，一是因为只有手机页面，域名还比较长，懒得输入；二是有些功能还不算完善；三是因为不确定这个搜索产品会不会被头条中途腰斩。后面又稍微关注了一下，是因为一部分小站被头条的爬虫给爬死了，让一部分站长苦不堪言，在网上发了一些牢骚。后面也就没怎么关注了，终其原因是没有看到头条搜索的爬虫官网和文档说明，网上能找到的信息屈指可数。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fffou.com/post/19112601/" />
+<meta property="article:published_time" content="2019-11-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-25T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何判断头条搜索的蜘蛛是否真实"/>
+<meta name="twitter:description" content="前段时间今日头条推出自己的搜索引擎产品：头条搜索  ，用了一下各方面还是不错，但是并没有放在心上，一是因为只有手机页面，域名还比较长，懒得输入；二是有些功能还不算完善；三是因为不确定这个搜索产品会不会被头条中途腰斩。后面又稍微关注了一下，是因为一部分小站被头条的爬虫给爬死了，让一部分站长苦不堪言，在网上发了一些牢骚。后面也就没怎么关注了，终其原因是没有看到头条搜索的爬虫官网和文档说明，网上能找到的信息屈指可数。"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>如何判断头条搜索的蜘蛛是否真实</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/style.css">
+	
+
+
+				
+
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://fffou.com">浮游笔记</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://fffou.com/">主页</a>
+				<a href="https://fffou.com/about/">关于</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://fffou.com/">主页</a></li>
+			<li><a href="https://fffou.com/about/">关于</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Nov 25, 2019</span></div>
+				<h1>如何判断头条搜索的蜘蛛是否真实</h1>
+			</header>
+			<div class="content">
+				<p>前段时间今日头条推出自己的搜索引擎产品：<code>头条搜索</code>  ，用了一下各方面还是不错，但是并没有放在心上，一是因为只有手机页面，域名还比较长，懒得输入；二是有些功能还不算完善；三是因为不确定这个搜索产品会不会被头条中途腰斩。后面又稍微关注了一下，是因为一部分小站被头条的爬虫给爬死了，让一部分站长苦不堪言，在网上发了一些牢骚。后面也就没怎么关注了，终其原因是没有看到头条搜索的爬虫官网和文档说明，网上能找到的信息屈指可数。</p>
+
+<p><audio id="audio" controls="" preload="none"> <source id="mp3" src="https://src.fffou.com/file/ffcode/music/19112601.m4a"> </audio></p>
+
+<h3 id="头条搜索">头条搜索<a href="#头条搜索" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>不过前几天在坛子里面看到有人说头条搜索站长平台内测，同时看到今日头条客户端内测版在首页重点突出搜索这个功能。看样子头条想在搜索方面找到新的突破点，按照头条现在的体量，足够获取作为站长们新的关注点。头条搜索的出现，多多少少为站长提供了新的机遇，也为搜索市场带来了新的竞争，这是好事。</p>
+
+<h3 id="怎么区分头条搜索的爬虫">怎么区分头条搜索的爬虫？<a href="#怎么区分头条搜索的爬虫" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>翻看了旧的网站日志，头条搜索的爬虫最早爬取我站点的时间是八月份，这跟我我重新回归本站的时间基本相符。那时候抓取我站点的两个“头条”爬虫主要是 <code>Bytespider</code> 和 <code>Toutiaospider</code> 两个蜘蛛，其中又以 <code>Toutiaospider</code> 最为频繁，我一度以为 <code>Toutiaospider</code><br />
+ 就是头条的蜘蛛，网上咨询过他人、也找过其他资料，得到的都是含糊其辞的答案。</p>
+
+<p>现在在头条搜索站长平台屈指可数的文档中找到答案，头条承认的搜索蜘蛛是首字母为大写的 <code>Bytespider</code>,
+根据头条搜索的文档可知头条的蜘蛛ip段有6个，具体是下列表格中的内容：</p>
+
+<pre><code> 110.249.201.0/24 
+ 110.249.202.0/24 
+ 111.225.148.0/24 
+ 111.225.149.0/24 
+ 220.243.135.0/24 
+ 220.243.136.0/24
+</code></pre>
+
+<h3 id="怎么判断蜘蛛是否伪造">怎么判断蜘蛛是否伪造？<a href="#怎么判断蜘蛛是否伪造" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>站长通过nslookup测试了头条提供的ip段范围内的ip，皆可返回带*.crawl.bytedance.com的返回值。也就是说，当你网页日志中出现了头条搜索的爬虫，而你又无法判断是否是真实的爬虫，这个时候就可以通过ip对比上述的ip段，是否在所属的ip段范围之内，或通过nslookup查看返回值，以进行判断是不是真实爬虫。</p>
+
+<h3 id="toutiaospider是不是头条搜索的爬虫">Toutiaospider是不是头条搜索的爬虫？<a href="#toutiaospider是不是头条搜索的爬虫" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>前面站长说了，头条搜索文档中表明了 <code>Bytespider</code> 为头条的爬虫，找遍网络也没看到 <code>toutiaospider</code>是不是头条的爬虫，只有少数的帖子将这个爬虫臆测为头条搜索的爬虫。根据网上帖子提供的ip对比，ip并不在官方文档提供的ip段之范围之内，nslookup查询也没有返回*.crawl.bytedance.com这个类型的值，基本可以判断这个不是头条搜索的爬虫，可根据自己的需要进行屏蔽。</p>
+
+<p>有些读者不喜欢细看全文，所以最后再强调一遍，避免错过最为重要的结论：</p>
+
+<pre><code> Toutiaospider 不是头条搜索的爬虫， 以大写开头的 Bytespider 才是头条搜索的爬虫
+</code></pre>
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://fffou.com/tags/%E5%A4%B4%E6%9D%A1">头条</a></span><span class="tag"><a href="https://fffou.com/tags/%E6%90%9C%E7%B4%A2">搜索</a></span><span class="tag"><a href="https://fffou.com/tags/%E7%88%AC%E8%99%AB">爬虫</a></span><span class="tag"><a href="https://fffou.com/tags/%E8%9C%98%E8%9B%9B">蜘蛛</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-11-25 08:00 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://fffou.com/post/19120401/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>越来越没性价比的黑色星期五</span>
+			</a>
+			<a class="prev-post" href="https://fffou.com/post/19092401/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>魅族升级flyme8解决卡logo</span>
+			</a>
+		</div>
+		<div id="comments" class="thin"><div id="comment"></div>
+        <script>
+        </script>
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2021 <a href="https://fffou.com">浮游笔记</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://fffou.com/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/js/bundle.js"></script>
+
+
+</body>
+
+</html>

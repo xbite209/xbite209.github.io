@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>debian on 浮游笔记</title>
+    <link>https://fffou.com/tags/debian/</link>
+    <description>Recent content in debian on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 17 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>win通过ssh访问virtualbox虚拟中的debian</title>
+      <link>https://fffou.com/post/199171/</link>
+      <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/199171/</guid>
+      <description>&lt;p&gt;本来想通过virtualbox虚拟机安装linux，以进行一些操作的。但是安装好系统后发现通过ssh工具怎么都连接不上虚拟机的linux，通过putty工具连接linux总是提示Access Denied，后面才知道连接virtualbox中的linux需要进行一些操作才能正常连接。本篇文章是总结笔记，这里以的linux以debian做例子。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

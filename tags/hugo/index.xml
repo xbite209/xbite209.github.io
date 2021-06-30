@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hugo on 浮游笔记</title>
+    <link>https://fffou.com/tags/hugo/</link>
+    <description>Recent content in hugo on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 14 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>为hugo主题hermit归档页面增加分页功能</title>
+      <link>https://fffou.com/post/2020-05-14/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/2020-05-14/</guid>
+      <description>站点程序从动态切换到静态已经很久了，而我用的静态程序是hugo，不得不说hugo各方面都比较不错的，就是很难找到称心如意的主题。
+今天某个博友问我文章归档页面是怎么样实现页面分页的，才想起去年通过搜索引擎找了好多主题，好不容易才找到这个hugo主题hermit，因为觉得归档页的页面很简洁，所以直接把主题的归档页面当作了站点首页，期间遇到主题在新版本的hugo中存在小问题 ，把hugo退回到0.56.3版本。
+直到后面遇到实在不能忍受的问题，就是这款主题归档页面竟然没有分页功能！要知道我这个人是比较追求稳定的，万一哪天文章多起来了，光是归档页面估计都能拉好几个屏幕那么长，这是我不能接受的。得想办法修改主题以实现这个功能，但是我不怎么会修改hugo主题，后面还是一咬牙，仔细看了看hugo官方文档，紧接着再翻看了十几二十个带翻页功能的hugo主题，终于看出了实现归档页面分页功能的可能：那就是为什么不通过查看别的hugo主题，文章列表分页功能是怎么实现的，想办法移植到这款主题的归档页面。
+事实证明我的想法是对的，后面通过左拼右凑，还真实现了hermit主题归档页面的分页功能。期间也给其他没有归档分页功能的hugo主题弄上了分页功能，但是跟hermit主题实现分页功能在代码上有一点差异，所以本文标题才特意指定hermit，其他hugo主题也可以参考本文，对有差异的地方自行修改实现。
+这里就以hugo主题hermit为例，记录增加归档页面的分页功能的实现步骤：
+找到归档页面的源码部分，添加分页代码 hermit主题的归档页面源码在layouts/_default/list.html文件中:
+如下代码：
+ {{ define &amp;quot;header&amp;quot; }} {{ partialCached &amp;quot;header.html&amp;quot; . }} {{ end }} {{ define &amp;quot;main&amp;quot; }} &amp;lt;main class=&amp;quot;site-main section-inner thin animated fadeIn faster&amp;quot;&amp;gt; &amp;lt;h1&amp;gt;{{ .Title }}&amp;lt;/h1&amp;gt; {{- if .Content }} &amp;lt;div class=&amp;quot;content&amp;quot;&amp;gt; {{ .Content }} &amp;lt;/div&amp;gt; {{- end }} {{- range .Data.Pages.GroupByDate &amp;quot;2006&amp;quot; }} &amp;lt;div class=&amp;quot;posts-group&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;post-year&amp;quot; id=&amp;quot;{{ .Key }}&amp;quot;&amp;gt;{{ .Key }}&amp;lt;/div&amp;gt; &amp;lt;ul class=&amp;quot;posts-list&amp;quot;&amp;gt; {{- range .Pages }} &amp;lt;li class=&amp;quot;post-item&amp;quot;&amp;gt; &amp;lt;a href=&amp;quot;{{.</description>
+    </item>
+    
+    <item>
+      <title>静态博客Hugo两个奇怪的问题</title>
+      <link>https://fffou.com/post/191214/</link>
+      <pubDate>Sat, 14 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/191214/</guid>
+      <description>想想当初为了小巧方便，在wordpress和typecho中我选择了后者，后面懒得维护我又从动态博客转到了静态博客，而静态博客之间我又做了许多选择，最后稳定停留在了用Go语言的静态博客纸小墨，因为这个程序作者很久没维护，出于长久考虑，后面从纸小墨切换到hugo，总算稳定下了。
+现在算算这个站点重新归来并用上Hugo也有四个余月了，总体上说，得益于Hugo是静态博客，并且是Go语言写的，在nginx的加持下，在生成文章速度和稳定性方面我是非常满意的，但是用了这么久Hugo，我也遇到了一些问题，其中又以这两个问题比较奇怪，特意详细描述这两个问题：
+还”没到时间“的文章不会生成 上个月某天凌晨一点我写了一篇文章，并上传到了主机。因为文章我是用crontab指定某个时间自动生成的，想到还没到生成文章的时间，我就手动用命令生成文章，紧接着到网站首页查看效果，但是网页首页没有看到那篇文章，遂以为网页缓存的问题，又把浏览器的的缓存清空，再次刷新也没看到那篇文章。
+没办法，只好本地搭建Hugo环境，把文章导入文章目录进行测试。考虑到可能是主题问题，就把主题切换了，没用。再想到可能是文章对应的文件后缀错误，看了一下后缀是md没错。接着考虑文章标题、时间、分类以及标签格错误了，后面都逐一检查，都没问题，再次尝试生成文章，但首页还是这样。突然想难道文章没显示在首页文章列表，之所以有这样的想法，是因为以前用了一些Hugo主题，有些文章并不会显示在首页的文章列表中的，便尝试输入文章的对应的url ： xxx.xx/post/xxxx/，依旧没看到那篇文章。
+就在我焦头烂额的时候，鬼使神差的我把文章的撰写时间改为昨天的，重新生成文章，在首页竟然看到了这篇文章。这下让我惊讶不小，难道这个时间很诡异？没办法，好多东西就需要时间来证明的，所以过了几天，我再次把那篇文章改为“那天的错误时间”，竟然可以生成文章了。现在仔细想想，难道Hugo用的时间不是我本地的时间，也就是我所属的东八区时区的时间?那么Hugo程序内部所认为的时间是哪个时区的时间，另一方面，还是Hugo作者把自己所在时区的时间写到了Hugo里面，才让Hugo与我本地时间产生了时间差？所以Hugo认为时间还没到，才没有生成那篇文章？
+Hugo版本展示归档页面问题 Hugo主题没有多少，我是选了又选，最后才选择了这款主题。这款主题的首页是一个展示页面，我不喜欢这款主题的主页，我更希望的是访客进入站点直接呈现文章列表，这样会显得更加简洁、直观，所以我把归档页面替换了原来的主页，这样主页就变成了文章列表，而原来的主题归档界面不支持分页，所以又翻看了Hugo的DOC文档，为首页的文章列表加上了分页支持。
+经过本地反复测没问题后，就把主题上传到主机，并重新生成页面。但是刷新缓存后，站点上的主页跟本地是不一样的，具体的差别是：本地的主页是直接呈现文章列表，而主机上的是呈现文章所在的目录（ps：我的文章放到post目录），点击目录才呈现文章列表。后面反复测试后后发现：
+ Hugo的0.56.3以上版本在会出现归档页面显示文件夹的问题，而0.56.3及以下版本就没问题，能直接列出文章列表。  本地Hugo环境用的0.56.3版本，所以首页显示文章列表，而主机上Hugo使用的0.60.0版本，所以主页是显示不一样的效果。是没办法，动手能力不强，在好的主题或解决这个问题的能力出现之前，只好一直用着Hugo的 0.56.3 的版本吧。
+下面两图是本地Hugo环境下和主机上主页显示效果的对比，大家可以看一下：
+这是Hugo 0.56.3及以下版本显示的主页效果：
+这是Hugo 0.56.3以上版本显示的主页效果：</description>
+    </item>
+    
+    <item>
+      <title>Getting Started with Hugo</title>
+      <link>https://fffou.com/post/hugoisforlovers/</link>
+      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/hugoisforlovers/</guid>
+      <description>Step 1. Install Hugo Go to Hugo releases and download the appropriate version for your OS and architecture.
+Save it somewhere specific as we will be using it in the next step.
+More complete instructions are available at Install Hugo
+Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.
+Follow the following steps:
+ Clone the Hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313  Corresponding pseudo commands:</description>
+    </item>
+    
+  </channel>
+</rss>

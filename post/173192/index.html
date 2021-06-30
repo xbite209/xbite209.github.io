@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="dns-prefetch" href="//creativecommons.org" />
+<link rel="dns-prefetch" href="//www.w3.org/" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="Keywords" content="浮游,浮游笔记,笔记,博客,记录">
+    <meta name="description" content="专注于思考、记录与分享">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#e0c684">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Hashover-PHP开源评论系统">
+<meta itemprop="description" content="之前一直想搭建静态博客配合着自己搭建的评论系统，思路是好的，然而问题确实困难重重。">
+
+
+<meta itemprop="datePublished" content="2017-03-19T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-03-19T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="118">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta property="og:title" content="Hashover-PHP开源评论系统" />
+<meta property="og:description" content="之前一直想搭建静态博客配合着自己搭建的评论系统，思路是好的，然而问题确实困难重重。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fffou.com/post/173192/" />
+<meta property="article:published_time" content="2017-03-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2017-03-19T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hashover-PHP开源评论系统"/>
+<meta name="twitter:description" content="之前一直想搭建静态博客配合着自己搭建的评论系统，思路是好的，然而问题确实困难重重。"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Hashover-PHP开源评论系统</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/style.css">
+	
+
+
+				
+
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://fffou.com">浮游笔记</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://fffou.com/">主页</a>
+				<a href="https://fffou.com/about/">关于</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://fffou.com/">主页</a></li>
+			<li><a href="https://fffou.com/about/">关于</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Mar 19, 2017</span></div>
+				<h1>Hashover-PHP开源评论系统</h1>
+			</header>
+			<div class="content">
+				<p>之前一直想搭建静态博客配合着自己搭建的评论系统，思路是好的，然而问题确实困难重重。</p>
+
+<p>找到好用的静态博客难，找到并搭建评论系统却更难，网络上的可供我们搭建的开源评论系统几乎没有，幸亏内容才是网站的中心。上文<a href="/post/173191/">静态博客——纸小墨</a>中提到过评论系统是有多么的少，少的一个手掌都数的清楚，适合博主的评论系统更是几乎了无所有。</p>
+
+<p>正好看到博友的博客换成了静态博客，切换了很多第三方评论系统都出了许多问题，比如：多说无法评论及不稳定，wordpress的评论系统IntenseDebate加载时异常的缓慢，搜狐畅言因为某些原因。。。因为之前在折腾Hashover开源评论系统（下面简称Hashover），碍于时间问题不能深入折腾，起了一点点的小私心让他人折腾透好让我更方便的采用，于是就推荐了hashover这款开源评论系统给博友。</p>
+
+<h3 id="hashover开源评论系统">Hashover开源评论系统<a href="#hashover开源评论系统" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>首先要说Hashover是博主在谷歌尝试用英文“comments system”找寻良久，翻遍大量网页才找到的。看到作者的github提到的介绍，心里很是激动。</p>
+
+<pre><code>    Hashover是一个采用php环境，支持多种存储格式(SQL/Json/Xml)储存评论数据的开源评论系统。
+</code></pre>
+
+<p>最重要的是这就意味着我们搭建这个系统的门槛进一步降低，不需要vps这种东西了。之前看到了“唯一一个”开源评论系统就是需要搭建python环境的，入手就难了许多。先不多说，说说Hashover的优点和特点。</p>
+
+<h3 id="特点及优点">特点及优点<a href="#特点及优点" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ol>
+<li>采用php，方便简单</li>
+<li>数据在自己手上，备份迁移方便，定制性更强</li>
+<li>支持垃圾评论过滤</li>
+<li>支持五种智能排序方式</li>
+<li>IP地址阻止</li>
+<li>电子邮件通知</li>
+<li>采用线程回复，更高效更稳定</li>
+<li>支持显示gravar图像</li>
+<li>评论Rss</li>
+<li>支持点赞功能</li>
+<li>支持设置热评</li>
+<li>支持定制CSS</li>
+<li>支持定制HTML</li>
+<li>支持固定链接</li>
+<li>持管理员账号</li>
+<li>支持多语言(暂无中文，可手动翻译)</li>
+<li>支持显示外部图像</li>
+<li>可限制HTML标记，保证评论安全</li>
+<li>支持模板布局修改</li>
+<li>支持网址补全</li>
+<li>推荐人检查</li>
+<li>支持AJax异步加载</li>
+</ol>
+
+<h3 id="安装方法摘抄">安装方法摘抄<a href="#安装方法摘抄" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>以下就少许的摘抄并翻译原作者的安装文档：</p>
+
+<p>1.JavaScript方法（推荐）</p>
+
+<pre><code>    &lt;script type=&quot;text/javascript&quot; src=&quot;/hashover.php&quot;&gt;&lt;/script&gt;
+    &lt;noscript&gt;You must have JavaScript enabled to use the comments.&lt;/noscript&gt;  
+</code></pre>
+
+<p>2.PHP方法</p>
+
+<pre><code>    &lt;?php $mode = 'php'; include('hashover.php'); ?&gt;  
+</code></pre>
+
+<p>3.推迟加载评论的JavaScript与代码：</p>
+
+<pre><code>    &lt;div id=&quot;hashover&quot;&gt;&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/hashover.php&quot; defer=&quot;defer&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+<p>4.异步加载评论的JavaScript：</p>
+
+<pre><code>    &lt;div id=&quot;hashover&quot;&gt;&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;(function() { var s = document.createElement('script'), t = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true; s.src = &quot;/hashover.php&quot;; t.parentNode.insertBefore(s, t); })();&lt;/script&gt;
+</code></pre>
+
+<h3 id="更多帮助访问">更多帮助访问：<a href="#更多帮助访问" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><a href="https://link.fffou.com/go/tildehash/">Hashover作者地址</a></p>
+
+<p><a href="https://link.fffou.com/go/hashover_github/">Hashover github地址</a></p>
+
+<p>因为工作比较忙，几乎没怎么去折腾，指导和交流更是指不上。发布此文目的纯属觉得这么好的评论系统不应该被埋没，好东西应该分享，更多的是希望博友在博客的迁移中不要丢失了珍贵的评论数据。</p>
+
+<p>附上一张评论系统的截图：</p>
+
+<p><img src="https://src.fffou.com/file/ffcode/oldimg/c5ed9d8bgy1fds7so754aj210j1cr409.jpg" alt="Hashover" /></p>
+
+<h3 id="hashover注意的问题">HashOver注意的问题<a href="#hashover注意的问题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>博主也在跟作者认真沟通一些来自评论系统的问题，比如说增加中文，自己评论完无法跳转回原评论页面等问题，惊喜的收到作者的回复邮件，粗浅的翻译了一下，大致意思是:</p>
+
+<pre><code>    “中文环境现在已经包含在HashOver-next最新文件之中中，要使用它，请在“settings.php”中设置“$ language”为“zh-cn”。作者已经做了一些小的风格/语法的变化，并希望他们有意义。如果有异议，欢迎大家指出问题。重定向问题现在也修复了。发表评论用户将会发布后重定向到正确的页面.”
+</code></pre>
+
+<p>博主目前正积极跟作者沟通邮件回复提醒功能，如果完善，就几近完美了&hellip;</p>
+
+<p>最新状态是邮件回复问题也已经解决，作者给出的解决方式：</p>
+
+<p>在设置文件中找到下列设置，并填写自己的邮箱并保持一致，否则会容易出错.</p>
+
+<pre><code> public $notificationEmail = 'example@example.com';
+</code></pre>
+
+<h3 id="关于第三方评论导入hashover的问题">关于第三方评论导入Hashover的问题<a href="#关于第三方评论导入hashover的问题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>前几天来自博友fooleap的推荐,发现有开发者开发出来了把Disqus评论导入Hashover的第三方
+转换程序disqus-to-hashover,有兴趣的博友可以尝尝鲜。</p>
+
+<h3 id="hashover的wordpress插件">Hashover的Wordpress插件<a href="#hashover的wordpress插件" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>感谢博友liaronce的告知，知道了作者推出了wordpress的插件版本，有兴趣的博友可以尝试一下。</p>
+
+<p><a href="https://link.fffou.com/go/hashover-wp-plugin/">WordPress plugin for HashOver Comments</a></p>
+
+<h3 id="多说问题">多说问题<a href="#多说问题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>我知道很多站长在采用多说，然而让我不明白的是，相当一部分站长明明知道多说已经无人维护的之后还在采用多说，甚至推荐身边的人使用多说。更有甚者，在有自带博客评论的情况下，放弃自带评论去采用多说这种费力不讨好的做法，表示费解。</p>
+
+<p>更让我无语的是，有那么一群站长，在多说倒下后继续寻找所谓的第三方评论，就没想过搭建自己的评论，也许静态博客说的过去，可动态博客就…</p>
+
+<p>这几天也跟作者在邮件上沟通了许多，也都学会了许多，感谢作者辛苦的付出。在我们这些博主的建议下，作者在短期内除了wordpress插件，修复了一些问题。</p>
+
+<p>也在多说问题倒下的问题上跟作者说了一下，希望作者能继续完善这个作品以至于完美替代多说，作者表示同意了，欢迎大家的提交问题，并修复所有遇到的问题，特别是他所不熟悉的中文环境，也希望大家指出软件的不足之处或是需要补充的功能，最成实现替代多说。</p>
+
+<p>再次感谢作者能花费精力做出如此精美的不为盈利的开源项目。</p>
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2017-03-19 08:00 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://fffou.com/post/17511/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>win10纯净之路</span>
+			</a>
+			<a class="prev-post" href="https://fffou.com/post/173191/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>静态博客——纸小墨</span>
+			</a>
+		</div>
+		<div id="comments" class="thin"><div id="comment"></div>
+        <script>
+        </script>
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2021 <a href="https://fffou.com">浮游笔记</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://fffou.com/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/js/bundle.js"></script>
+
+
+</body>
+
+</html>

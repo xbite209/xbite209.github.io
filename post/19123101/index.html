@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="dns-prefetch" href="//creativecommons.org" />
+<link rel="dns-prefetch" href="//www.w3.org/" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="Keywords" content="浮游,浮游笔记,笔记,博客,记录">
+    <meta name="description" content="专注于思考、记录与分享">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#e0c684">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="军哥LNMP一键包启用Brotli压缩">
+<meta itemprop="description" content="最近网上看了许多文章，说是在压缩算法上面Brotli比gzipy更具压缩效率，进而让网页打开的速度更快。我看在眼里，很是心动，奈何人懒，一直拖到前段时间才用上，也因为懒，这篇文章直到今天才写。Brotli具有以下优势：
+ 针对常见的 Web 资源内容，Brotli 的性能相比 Gzip 提高了 17-25%； 当 Brotli 压缩级别为 1 时，压缩率比 Gzip 压缩等级为 9（最高）时还要高； 在处理不同 HTML 文档时，Brotli 依然能够提供非常高的压缩率。
+  有必要利用Brotli优化站点 我的站点放在了国外，访问速度相比国内站点本就不占优势，特别上到了晚上，线路炸的让人一言难尽。所以希望在自己的能力范围内，能优化就尽量优化，这样能让网站的访问速度更上一层楼，尽可能的提高访客的浏览体验。
+看过我我前面文章的朋友应该还记得，我写的那篇 《LNMP升级Nginx和Openssl到最新版》 那篇文章，本人以为可以如法炮制，果断从Brotli的github项目中下载源码，并在LNMP的编译参数中像那篇文章一样加上 –with-openssl=/root/lnmp1.6/src/brotli-master 编译参数，就可以把Brotli编译到nginx中，但是后面怎么弄都启用不了Brotli。又通过 nginx -V查看了编译好的nginx编译参数，发现Brotli模板并没有编译到nginx的二进制文件里头。
+编译Brotli并开启Brotli的方法 后面翻看了许多文章，看到了其中一种nginx通过挂接模板编译的方式，果断尝试，一次编译成功。今天写此文章，用作笔记。因为我用的是军哥的LNMP一键包，这里就以这个一键包去写。下面是方法和步骤：
+1.定位到LNMP源码目录
+ cd /root/lnmp1.6/src/  2.通过git从github拉取Brotli源码
+ git clone https://github.com/google/ngx_brotli.git  3.切换到Brotli目录
+ cd ngx_brotli  4.初始化子模版
+ git submodule update --init  5.编辑lnmp.conf配置文件
+ vi /root/lnmp1.6/lnmp.conf  6.添加需要编译的Brotli模板
+ Nginx_Modules_Options=&#39;--add-module=/root/lnmp1.6/src/ngx_brotli&#39;  7.重新编译nginx
+ cd /root/lnmp1.">
+
+
+<meta itemprop="datePublished" content="2019-12-31T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-31T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="115">
+
+
+
+<meta itemprop="keywords" content="lnmp,brotli," />
+<meta property="og:title" content="军哥LNMP一键包启用Brotli压缩" />
+<meta property="og:description" content="最近网上看了许多文章，说是在压缩算法上面Brotli比gzipy更具压缩效率，进而让网页打开的速度更快。我看在眼里，很是心动，奈何人懒，一直拖到前段时间才用上，也因为懒，这篇文章直到今天才写。Brotli具有以下优势：
+ 针对常见的 Web 资源内容，Brotli 的性能相比 Gzip 提高了 17-25%； 当 Brotli 压缩级别为 1 时，压缩率比 Gzip 压缩等级为 9（最高）时还要高； 在处理不同 HTML 文档时，Brotli 依然能够提供非常高的压缩率。
+  有必要利用Brotli优化站点 我的站点放在了国外，访问速度相比国内站点本就不占优势，特别上到了晚上，线路炸的让人一言难尽。所以希望在自己的能力范围内，能优化就尽量优化，这样能让网站的访问速度更上一层楼，尽可能的提高访客的浏览体验。
+看过我我前面文章的朋友应该还记得，我写的那篇 《LNMP升级Nginx和Openssl到最新版》 那篇文章，本人以为可以如法炮制，果断从Brotli的github项目中下载源码，并在LNMP的编译参数中像那篇文章一样加上 –with-openssl=/root/lnmp1.6/src/brotli-master 编译参数，就可以把Brotli编译到nginx中，但是后面怎么弄都启用不了Brotli。又通过 nginx -V查看了编译好的nginx编译参数，发现Brotli模板并没有编译到nginx的二进制文件里头。
+编译Brotli并开启Brotli的方法 后面翻看了许多文章，看到了其中一种nginx通过挂接模板编译的方式，果断尝试，一次编译成功。今天写此文章，用作笔记。因为我用的是军哥的LNMP一键包，这里就以这个一键包去写。下面是方法和步骤：
+1.定位到LNMP源码目录
+ cd /root/lnmp1.6/src/  2.通过git从github拉取Brotli源码
+ git clone https://github.com/google/ngx_brotli.git  3.切换到Brotli目录
+ cd ngx_brotli  4.初始化子模版
+ git submodule update --init  5.编辑lnmp.conf配置文件
+ vi /root/lnmp1.6/lnmp.conf  6.添加需要编译的Brotli模板
+ Nginx_Modules_Options=&#39;--add-module=/root/lnmp1.6/src/ngx_brotli&#39;  7.重新编译nginx
+ cd /root/lnmp1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fffou.com/post/19123101/" />
+<meta property="article:published_time" content="2019-12-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-31T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="军哥LNMP一键包启用Brotli压缩"/>
+<meta name="twitter:description" content="最近网上看了许多文章，说是在压缩算法上面Brotli比gzipy更具压缩效率，进而让网页打开的速度更快。我看在眼里，很是心动，奈何人懒，一直拖到前段时间才用上，也因为懒，这篇文章直到今天才写。Brotli具有以下优势：
+ 针对常见的 Web 资源内容，Brotli 的性能相比 Gzip 提高了 17-25%； 当 Brotli 压缩级别为 1 时，压缩率比 Gzip 压缩等级为 9（最高）时还要高； 在处理不同 HTML 文档时，Brotli 依然能够提供非常高的压缩率。
+  有必要利用Brotli优化站点 我的站点放在了国外，访问速度相比国内站点本就不占优势，特别上到了晚上，线路炸的让人一言难尽。所以希望在自己的能力范围内，能优化就尽量优化，这样能让网站的访问速度更上一层楼，尽可能的提高访客的浏览体验。
+看过我我前面文章的朋友应该还记得，我写的那篇 《LNMP升级Nginx和Openssl到最新版》 那篇文章，本人以为可以如法炮制，果断从Brotli的github项目中下载源码，并在LNMP的编译参数中像那篇文章一样加上 –with-openssl=/root/lnmp1.6/src/brotli-master 编译参数，就可以把Brotli编译到nginx中，但是后面怎么弄都启用不了Brotli。又通过 nginx -V查看了编译好的nginx编译参数，发现Brotli模板并没有编译到nginx的二进制文件里头。
+编译Brotli并开启Brotli的方法 后面翻看了许多文章，看到了其中一种nginx通过挂接模板编译的方式，果断尝试，一次编译成功。今天写此文章，用作笔记。因为我用的是军哥的LNMP一键包，这里就以这个一键包去写。下面是方法和步骤：
+1.定位到LNMP源码目录
+ cd /root/lnmp1.6/src/  2.通过git从github拉取Brotli源码
+ git clone https://github.com/google/ngx_brotli.git  3.切换到Brotli目录
+ cd ngx_brotli  4.初始化子模版
+ git submodule update --init  5.编辑lnmp.conf配置文件
+ vi /root/lnmp1.6/lnmp.conf  6.添加需要编译的Brotli模板
+ Nginx_Modules_Options=&#39;--add-module=/root/lnmp1.6/src/ngx_brotli&#39;  7.重新编译nginx
+ cd /root/lnmp1."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>军哥LNMP一键包启用Brotli压缩</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/style.css">
+	
+
+
+				
+
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://fffou.com">浮游笔记</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://fffou.com/">主页</a>
+				<a href="https://fffou.com/about/">关于</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://fffou.com/">主页</a></li>
+			<li><a href="https://fffou.com/about/">关于</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Dec 31, 2019</span></div>
+				<h1>军哥LNMP一键包启用Brotli压缩</h1>
+			</header>
+			<div class="content">
+				
+
+<p>最近网上看了许多文章，说是在压缩算法上面Brotli比gzipy更具压缩效率，进而让网页打开的速度更快。我看在眼里，很是心动，奈何人懒，一直拖到前段时间才用上，也因为懒，这篇文章直到今天才写。Brotli具有以下优势：</p>
+
+<ul>
+<li>针对常见的 Web 资源内容，Brotli 的性能相比 Gzip 提高了 17-25%；</li>
+<li>当 Brotli 压缩级别为 1 时，压缩率比 Gzip 压缩等级为 9（最高）时还要高；</li>
+<li>在处理不同 HTML 文档时，Brotli 依然能够提供非常高的压缩率。<br />
+
+<br /></li>
+</ul>
+
+<h3 id="有必要利用brotli优化站点">有必要利用Brotli优化站点<a href="#有必要利用brotli优化站点" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>我的站点放在了国外，访问速度相比国内站点本就不占优势，特别上到了晚上，线路炸的让人一言难尽。所以希望在自己的能力范围内，能优化就尽量优化，这样能让网站的访问速度更上一层楼，尽可能的提高访客的浏览体验。</p>
+
+<p>看过我我前面文章的朋友应该还记得，我写的那篇 <a href="../1991801/">《LNMP升级Nginx和Openssl到最新版》</a> 那篇文章，本人以为可以如法炮制，果断从Brotli的github项目中下载源码，并在LNMP的编译参数中像那篇文章一样加上 <code>–with-openssl=/root/lnmp1.6/src/brotli-master</code> 编译参数，就可以把Brotli编译到nginx中，但是后面怎么弄都启用不了Brotli。又通过 <code>nginx -V</code>查看了编译好的nginx编译参数，发现Brotli模板并没有编译到nginx的二进制文件里头。</p>
+
+<h3 id="编译brotli并开启brotli的方法">编译Brotli并开启Brotli的方法<a href="#编译brotli并开启brotli的方法" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>后面翻看了许多文章，看到了其中一种nginx通过挂接模板编译的方式，果断尝试，一次编译成功。今天写此文章，用作笔记。因为我用的是军哥的LNMP一键包，这里就以这个一键包去写。下面是方法和步骤：</p>
+
+<p>1.定位到LNMP源码目录</p>
+
+<pre><code>  cd /root/lnmp1.6/src/
+</code></pre>
+
+<p>2.通过git从github拉取Brotli源码</p>
+
+<pre><code>  git clone https://github.com/google/ngx_brotli.git
+</code></pre>
+
+<p>3.切换到Brotli目录</p>
+
+<pre><code>  cd ngx_brotli
+</code></pre>
+
+<p>4.初始化子模版</p>
+
+<pre><code>  git submodule update --init
+</code></pre>
+
+<p>5.编辑lnmp.conf配置文件</p>
+
+<pre><code>   vi /root/lnmp1.6/lnmp.conf
+</code></pre>
+
+<p>6.添加需要编译的Brotli模板</p>
+
+<pre><code>   Nginx_Modules_Options='--add-module=/root/lnmp1.6/src/ngx_brotli'  
+</code></pre>
+
+<p>7.重新编译nginx</p>
+
+<pre><code>    cd /root/lnmp1.6  
+
+   ./upgrade.sh nginx  
+</code></pre>
+
+<p>编译好后，输入 <code>nginx -V</code> 查看Brotli模板是否编译成功。出现下图，即成功将Brotli模板成功编译进nginx二进制文件。</p>
+
+<p><img src="https://src.fffou.com/file/ffcode/img/19123101.png" alt="Brotli模板成功编译进nginx二进制文件" title="Brotli模板成功编译进nginx二进制文件" /></p>
+
+<p>8.编辑nginx.conf文件</p>
+
+<pre><code>   vi /usr/local/nginx/conf/nginx.conf
+</code></pre>
+
+<p>9.打开了nginx.conf文件后会看到events{}、http{}、server{}三个项，往<code>http{}</code>项添加Brotli配置</p>
+
+<pre><code>    brotli on;
+    brotli_comp_level 6;
+    brotli_min_length 512;
+    brotli_types text/plain text/javascript text/css text/xml text/x-component application/javascript application/x-javascript application/xml application/json application/xhtml+xml application/rss+xml application/atom+xml application/x-font-ttf application/vnd.ms-fontobject image/svg+xml image/x-icon font/opentype;
+    brotli_static always;
+
+    #limit_conn_zone $binary_remote_addr zone=perip:10m;
+    ##If enable limit_conn_zone,add &quot;limit_conn perip 10;&quot; to server section.
+</code></pre>
+
+<p>10.重启nginx服务</p>
+
+<pre><code>    /usr/local/nginx/sbin/  -s reload
+</code></pre>
+
+<p>11.清除网页缓存，重新打开网页，<code>F12</code> 打开 <code>开发者工具</code>,切换到 <code>Network</code>&mdash;<code>Ctrl+F5</code>&mdash;点击选择页面地址&mdash;选择右边栏目的<code>Headers</code>，<code>Headers</code>栏目下方的<code>Response Headers</code> 中出现有 <code>content-encoding: br</code> 表示开启Brotli成功。如下图：</p>
+
+<p><img src="https://src.fffou.com/file/ffcode/img/19123102.png" alt="content-encoding: br 表示开启Brotli成功" title="content-encoding: br 表示开启Brotli成功" /></p>
+
+<p> </p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://fffou.com/tags/lnmp">lnmp</a></span><span class="tag"><a href="https://fffou.com/tags/brotli">brotli</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-12-31 08:00 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://fffou.com/post/20010501/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Nginx利用filebrowser管理vps中的文件</span>
+			</a>
+			<a class="prev-post" href="https://fffou.com/post/191214/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>静态博客Hugo两个奇怪的问题</span>
+			</a>
+		</div>
+		<div id="comments" class="thin"><div id="comment"></div>
+        <script>
+        </script>
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2021 <a href="https://fffou.com">浮游笔记</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://fffou.com/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/js/bundle.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>aria2 on 浮游笔记</title>
+    <link>https://fffou.com/tags/aria2/</link>
+    <description>Recent content in aria2 on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 10 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/aria2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>利用vps配合aria2以及AriaNg搭建自己的离线下载服务器</title>
+      <link>https://fffou.com/post/2020-02-10/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/2020-02-10/</guid>
+      <description>博客所使用的vps已经用了有两年了，而博客还是静态的，vps内存占用也就比较低，还有少的可怜的访客，每个月跑的流量还不到vps规定流量上限的零头，这样看来vps还可以搭建其他服务玩玩。
+因为经常需要下载国外的资源，每次下载都比较慢，所以首先想到是通过搭建离线下载服务器来中转文件，以加快下载速度。
+看了一下网上现成的脚本，首先看到小z的CCAA的Docker部署，奈何这个CCAA整合了AriaNg + Aria2 + FileBrowser ，而我服务器已经安装了Filebrowser，自己有小小的洁癖，不喜欢重复安装Filebrowser，也不怎么喜欢这样部署Docker，确切地说我更喜欢用一台vps专们用来跑Docker服务。
+既然不用Docker部署，就只能考虑手动安装，但是网上很多现成的手动安装教程，我安装了几次都不能成功，后面自己换了一些思路，折腾了好久才成功，为了方便下次折腾，特意记录下这篇文章。
+准备 准备三个域名：域名A、域名B、域名C
+我这里环境：Debian、军哥的LNMP一键包
+安装步骤 1.安装Aria2
+ apt-get update apt-get upgrade apt-get install aria2  2.测试Aria2是否安装成功：
+ aria2 -v  出现下列内容表示安装成功：
+ aria2 version 1.34.0 Copyright (C) 2006, 2017 Tatsuhiro Tsujikawa This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</description>
+    </item>
+    
+  </channel>
+</rss>

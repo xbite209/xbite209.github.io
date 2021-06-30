@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>浮游笔记</title>
+    <link>https://fffou.com/</link>
+    <description>Recent content on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sat, 25 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>nginx location配置中的root、alias用法区别之域名二级目录绑定其他网页目录</title>
+      <link>https://fffou.com/post/2020-07-25/</link>
+      <pubDate>Sat, 25 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/2020-07-25/</guid>
+      <description>这两天搭建了两个同类型的网站，我这里就说网站a和网站b吧，这里也假设他们的目录对应为/home/wwwroot/a、/home/wwwroot/a。后面想了一下为了维护方便，决定把b的网站目录绑定到a域名的二级目录，即：a.com/b/。
+这里可能有些朋友要问，为什么不直接把b目录移动到a的目录之下。我没有这么做是因为b的网页文件是一个配套的程序生成的，而我移动文件，需要把配套的程序和配置文件一起移动到a目录之下，这样等于把源程序、配置文件、以及其他目录公开暴露无疑，虽然可以通过通过配置nginx的方式屏蔽下载源文件及屏蔽访问指定的目录，但还是略显麻烦。
+所以在无奈之下，必须尝试原先设想的的思路是否可行，下面我就记录一步一步修改配置文件的过程，
+原来的网页配置文件：
+ server { listen 80; #listen [::]:80; server_name a.com ; index index.html index.htm index.php default.html default.htm default.php; root /home/wwwroot/a; }  添加设想的配置1：
+ server { listen 80; #listen [::]:80; server_name a.com ; index index.html index.htm index.php default.html default.htm default.php; root /home/wwwroot/a; location /b { root /home/wwwroot/b; } }  配置生效后，直接访问a.com/b，页面直接显示404。
+紧接着参考了笛声博客的《Nginx的location规则迷之匹配》这篇文章后，考虑到可能是location的优先级问题，直接在location处添加=提升优先级到最高，修改配置文件为：
+ server { listen 80; #listen [::]:80; server_name a.com ; index index.html index.htm index.php default.html default.</description>
+    </item>
+    
+    <item>
+      <title>为hugo主题hermit归档页面增加分页功能</title>
+      <link>https://fffou.com/post/2020-05-14/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/2020-05-14/</guid>
+      <description>站点程序从动态切换到静态已经很久了，而我用的静态程序是hugo，不得不说hugo各方面都比较不错的，就是很难找到称心如意的主题。
+今天某个博友问我文章归档页面是怎么样实现页面分页的，才想起去年通过搜索引擎找了好多主题，好不容易才找到这个hugo主题hermit，因为觉得归档页的页面很简洁，所以直接把主题的归档页面当作了站点首页，期间遇到主题在新版本的hugo中存在小问题 ，把hugo退回到0.56.3版本。
+直到后面遇到实在不能忍受的问题，就是这款主题归档页面竟然没有分页功能！要知道我这个人是比较追求稳定的，万一哪天文章多起来了，光是归档页面估计都能拉好几个屏幕那么长，这是我不能接受的。得想办法修改主题以实现这个功能，但是我不怎么会修改hugo主题，后面还是一咬牙，仔细看了看hugo官方文档，紧接着再翻看了十几二十个带翻页功能的hugo主题，终于看出了实现归档页面分页功能的可能：那就是为什么不通过查看别的hugo主题，文章列表分页功能是怎么实现的，想办法移植到这款主题的归档页面。
+事实证明我的想法是对的，后面通过左拼右凑，还真实现了hermit主题归档页面的分页功能。期间也给其他没有归档分页功能的hugo主题弄上了分页功能，但是跟hermit主题实现分页功能在代码上有一点差异，所以本文标题才特意指定hermit，其他hugo主题也可以参考本文，对有差异的地方自行修改实现。
+这里就以hugo主题hermit为例，记录增加归档页面的分页功能的实现步骤：
+找到归档页面的源码部分，添加分页代码 hermit主题的归档页面源码在layouts/_default/list.html文件中:
+如下代码：
+ {{ define &amp;quot;header&amp;quot; }} {{ partialCached &amp;quot;header.html&amp;quot; . }} {{ end }} {{ define &amp;quot;main&amp;quot; }} &amp;lt;main class=&amp;quot;site-main section-inner thin animated fadeIn faster&amp;quot;&amp;gt; &amp;lt;h1&amp;gt;{{ .Title }}&amp;lt;/h1&amp;gt; {{- if .Content }} &amp;lt;div class=&amp;quot;content&amp;quot;&amp;gt; {{ .Content }} &amp;lt;/div&amp;gt; {{- end }} {{- range .Data.Pages.GroupByDate &amp;quot;2006&amp;quot; }} &amp;lt;div class=&amp;quot;posts-group&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;post-year&amp;quot; id=&amp;quot;{{ .Key }}&amp;quot;&amp;gt;{{ .Key }}&amp;lt;/div&amp;gt; &amp;lt;ul class=&amp;quot;posts-list&amp;quot;&amp;gt; {{- range .Pages }} &amp;lt;li class=&amp;quot;post-item&amp;quot;&amp;gt; &amp;lt;a href=&amp;quot;{{.</description>
+    </item>
+    
+    <item>
+      <title>利用vps配合aria2以及AriaNg搭建自己的离线下载服务器</title>
+      <link>https://fffou.com/post/2020-02-10/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/2020-02-10/</guid>
+      <description>博客所使用的vps已经用了有两年了，而博客还是静态的，vps内存占用也就比较低，还有少的可怜的访客，每个月跑的流量还不到vps规定流量上限的零头，这样看来vps还可以搭建其他服务玩玩。
+因为经常需要下载国外的资源，每次下载都比较慢，所以首先想到是通过搭建离线下载服务器来中转文件，以加快下载速度。
+看了一下网上现成的脚本，首先看到小z的CCAA的Docker部署，奈何这个CCAA整合了AriaNg + Aria2 + FileBrowser ，而我服务器已经安装了Filebrowser，自己有小小的洁癖，不喜欢重复安装Filebrowser，也不怎么喜欢这样部署Docker，确切地说我更喜欢用一台vps专们用来跑Docker服务。
+既然不用Docker部署，就只能考虑手动安装，但是网上很多现成的手动安装教程，我安装了几次都不能成功，后面自己换了一些思路，折腾了好久才成功，为了方便下次折腾，特意记录下这篇文章。
+准备 准备三个域名：域名A、域名B、域名C
+我这里环境：Debian、军哥的LNMP一键包
+安装步骤 1.安装Aria2
+ apt-get update apt-get upgrade apt-get install aria2  2.测试Aria2是否安装成功：
+ aria2 -v  出现下列内容表示安装成功：
+ aria2 version 1.34.0 Copyright (C) 2006, 2017 Tatsuhiro Tsujikawa This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</description>
+    </item>
+    
+    <item>
+      <title>Nginx利用filebrowser管理vps中的文件</title>
+      <link>https://fffou.com/post/20010501/</link>
+      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/20010501/</guid>
+      <description>站点环境用的是LNMP一键包，并没有像大家一样用宝塔、AMH之类的面板程序，一来是因为vps配置较低，二来用一键包个人认为比较安全，但是遇到需要管理vps中的文件的时候就比较麻烦。不过还好，可以配合filebrowser管理vps的文件。
+filebrowser 功能介绍 filebrowser是用Go语言开发的文件管理器，不需要第三方地依赖，除了配合Nginx、Apache、Caddy等Web服务器使用外，也可单独作为Web文件管理器使用，功能上支持简单的音视频播放，分享文件方面提供永久链接或临时链接（按时、分、秒）进行分享，并支持在下载页面展示当前下载页面的二维码，非常实用。站长我喜欢用filebrowser编辑一些配置文件，避免了了SSH终端用vi编辑文件的痛苦。
+安装filebrowser 前面说了filebrowser的功能，现在是分享搭建filebrowser的步骤，我用的linux环境是Debian 64位系统，所以这里以Debian 64位系统作为本文的系统基础，大家可做做参考。
+1.切换到home目录
+ cd /home  2.SSh连接vps，访问filebrowse托管平台github的releases 页面，下载对应系统版本的filebrowser文件，并解压文件。
+ wget https://github.com/filebrowser/filebrowser/releases/download/v2.0.16/linux-amd64-filebrowser.tar.gz tar -xzvf linux-amd64-filebrowser.tar.gz  3.赋予filebrowser运行权限
+ chmod +x ./filebrowser  4.指定端口运行一遍filebrowser，这样filebrowser就会在同目录下生成同名配置文件filebrowser.db。因为Nginx占用了80、433端口，所以这里我指定了其他端口，你可以按照自己的需求指定自己的端口，本文以25557端口为例
+ ./filebrowser -p 25557 -a 0.0.0.0  5.访问filebrowser，并更改默认的密码，默认账户密码皆为admin
+ http://ip:25557  6.终止filebrowser运行
+ CTRL+C  7.设置filebrowser为系统服务
+ cat &amp;lt;&amp;lt; EOF &amp;gt; /lib/systemd/system/filebrowser.service  8.接着输入下列配置
+ [Unit] Description=Filebrowser Client Service After=network.target [Service] Type=simple Restart=always RestartSec=5s ExecStart=/home/filebrowser -p 25557 -a 0.0.0.0 ExecReload=/home/filebrowser reload -p 25557 -a 0.</description>
+    </item>
+    
+    <item>
+      <title>军哥LNMP一键包启用Brotli压缩</title>
+      <link>https://fffou.com/post/19123101/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/19123101/</guid>
+      <description>最近网上看了许多文章，说是在压缩算法上面Brotli比gzipy更具压缩效率，进而让网页打开的速度更快。我看在眼里，很是心动，奈何人懒，一直拖到前段时间才用上，也因为懒，这篇文章直到今天才写。Brotli具有以下优势：
+ 针对常见的 Web 资源内容，Brotli 的性能相比 Gzip 提高了 17-25%； 当 Brotli 压缩级别为 1 时，压缩率比 Gzip 压缩等级为 9（最高）时还要高； 在处理不同 HTML 文档时，Brotli 依然能够提供非常高的压缩率。
+  有必要利用Brotli优化站点 我的站点放在了国外，访问速度相比国内站点本就不占优势，特别上到了晚上，线路炸的让人一言难尽。所以希望在自己的能力范围内，能优化就尽量优化，这样能让网站的访问速度更上一层楼，尽可能的提高访客的浏览体验。
+看过我我前面文章的朋友应该还记得，我写的那篇 《LNMP升级Nginx和Openssl到最新版》 那篇文章，本人以为可以如法炮制，果断从Brotli的github项目中下载源码，并在LNMP的编译参数中像那篇文章一样加上 –with-openssl=/root/lnmp1.6/src/brotli-master 编译参数，就可以把Brotli编译到nginx中，但是后面怎么弄都启用不了Brotli。又通过 nginx -V查看了编译好的nginx编译参数，发现Brotli模板并没有编译到nginx的二进制文件里头。
+编译Brotli并开启Brotli的方法 后面翻看了许多文章，看到了其中一种nginx通过挂接模板编译的方式，果断尝试，一次编译成功。今天写此文章，用作笔记。因为我用的是军哥的LNMP一键包，这里就以这个一键包去写。下面是方法和步骤：
+1.定位到LNMP源码目录
+ cd /root/lnmp1.6/src/  2.通过git从github拉取Brotli源码
+ git clone https://github.com/google/ngx_brotli.git  3.切换到Brotli目录
+ cd ngx_brotli  4.初始化子模版
+ git submodule update --init  5.编辑lnmp.conf配置文件
+ vi /root/lnmp1.6/lnmp.conf  6.添加需要编译的Brotli模板
+ Nginx_Modules_Options=&#39;--add-module=/root/lnmp1.6/src/ngx_brotli&#39;  7.重新编译nginx
+ cd /root/lnmp1.</description>
+    </item>
+    
+    <item>
+      <title>静态博客Hugo两个奇怪的问题</title>
+      <link>https://fffou.com/post/191214/</link>
+      <pubDate>Sat, 14 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/191214/</guid>
+      <description>想想当初为了小巧方便，在wordpress和typecho中我选择了后者，后面懒得维护我又从动态博客转到了静态博客，而静态博客之间我又做了许多选择，最后稳定停留在了用Go语言的静态博客纸小墨，因为这个程序作者很久没维护，出于长久考虑，后面从纸小墨切换到hugo，总算稳定下了。
+现在算算这个站点重新归来并用上Hugo也有四个余月了，总体上说，得益于Hugo是静态博客，并且是Go语言写的，在nginx的加持下，在生成文章速度和稳定性方面我是非常满意的，但是用了这么久Hugo，我也遇到了一些问题，其中又以这两个问题比较奇怪，特意详细描述这两个问题：
+还”没到时间“的文章不会生成 上个月某天凌晨一点我写了一篇文章，并上传到了主机。因为文章我是用crontab指定某个时间自动生成的，想到还没到生成文章的时间，我就手动用命令生成文章，紧接着到网站首页查看效果，但是网页首页没有看到那篇文章，遂以为网页缓存的问题，又把浏览器的的缓存清空，再次刷新也没看到那篇文章。
+没办法，只好本地搭建Hugo环境，把文章导入文章目录进行测试。考虑到可能是主题问题，就把主题切换了，没用。再想到可能是文章对应的文件后缀错误，看了一下后缀是md没错。接着考虑文章标题、时间、分类以及标签格错误了，后面都逐一检查，都没问题，再次尝试生成文章，但首页还是这样。突然想难道文章没显示在首页文章列表，之所以有这样的想法，是因为以前用了一些Hugo主题，有些文章并不会显示在首页的文章列表中的，便尝试输入文章的对应的url ： xxx.xx/post/xxxx/，依旧没看到那篇文章。
+就在我焦头烂额的时候，鬼使神差的我把文章的撰写时间改为昨天的，重新生成文章，在首页竟然看到了这篇文章。这下让我惊讶不小，难道这个时间很诡异？没办法，好多东西就需要时间来证明的，所以过了几天，我再次把那篇文章改为“那天的错误时间”，竟然可以生成文章了。现在仔细想想，难道Hugo用的时间不是我本地的时间，也就是我所属的东八区时区的时间?那么Hugo程序内部所认为的时间是哪个时区的时间，另一方面，还是Hugo作者把自己所在时区的时间写到了Hugo里面，才让Hugo与我本地时间产生了时间差？所以Hugo认为时间还没到，才没有生成那篇文章？
+Hugo版本展示归档页面问题 Hugo主题没有多少，我是选了又选，最后才选择了这款主题。这款主题的首页是一个展示页面，我不喜欢这款主题的主页，我更希望的是访客进入站点直接呈现文章列表，这样会显得更加简洁、直观，所以我把归档页面替换了原来的主页，这样主页就变成了文章列表，而原来的主题归档界面不支持分页，所以又翻看了Hugo的DOC文档，为首页的文章列表加上了分页支持。
+经过本地反复测没问题后，就把主题上传到主机，并重新生成页面。但是刷新缓存后，站点上的主页跟本地是不一样的，具体的差别是：本地的主页是直接呈现文章列表，而主机上的是呈现文章所在的目录（ps：我的文章放到post目录），点击目录才呈现文章列表。后面反复测试后后发现：
+ Hugo的0.56.3以上版本在会出现归档页面显示文件夹的问题，而0.56.3及以下版本就没问题，能直接列出文章列表。  本地Hugo环境用的0.56.3版本，所以首页显示文章列表，而主机上Hugo使用的0.60.0版本，所以主页是显示不一样的效果。是没办法，动手能力不强，在好的主题或解决这个问题的能力出现之前，只好一直用着Hugo的 0.56.3 的版本吧。
+下面两图是本地Hugo环境下和主机上主页显示效果的对比，大家可以看一下：
+这是Hugo 0.56.3及以下版本显示的主页效果：
+这是Hugo 0.56.3以上版本显示的主页效果：</description>
+    </item>
+    
+    <item>
+      <title>越来越没性价比的黑色星期五</title>
+      <link>https://fffou.com/post/19120401/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/19120401/</guid>
+      <description>转眼间黑五有过去了，每年的黑五都会受到大量的关注，当然的，今年的黑五一样不会例外。关注归关注，商家的活动也很重要，然而今年商家的活动却越来越不给力。
+不那么性价比的主机 就拿主机vps来说，今年黑五的价格看不到性价比的地方，也看不到购买的欲望，更没有传家宝的冲动。相比国内的双十一，性价比差距进一步拉大，所谓期望越大，换来的失望就越大，没办法，谁让我们等了一年的黑五，却等来这样让人扫兴的场面，难免让人失望。 稍微性价比的　 可以考虑使用的域名邮箱 虽然今年的黑五，没什么性价比的主机vps，但今年黑五的mxroute域名邮箱，性价比还是可以的，域名绑定数量不限，需要域名邮箱的可以考虑。我没有买，因为站点回复邮件用yandex免费的域名邮箱就够了。
+免费best域名 这次黑五除了mxroute这个比较性价比的域名邮箱之外，还看到OVH和Dynadot这两个商家提供免费一年的best域名，我是在最后几个小时，才决定弄一个best域名，准备以后用作各种测试用用，不得不说这次黑五的best域名还挺香的。
+当然的，这次黑五说实话真的没什么比较出色和性价比的产品，有些产品在黑五的价格甚至相比平时都没多大优势，可能是商家的成本越来越高，以至于所谓的黑五都敷衍了事，所以估计以后黑五更难有让大家觉得性价比的产品，大家且行且珍惜吧，该续费的就续费吧，该入手的不要犹豫果断入手，不要失去了传家宝才后悔。</description>
+    </item>
+    
+    <item>
+      <title>如何判断头条搜索的蜘蛛是否真实</title>
+      <link>https://fffou.com/post/19112601/</link>
+      <pubDate>Mon, 25 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/19112601/</guid>
+      <description>&lt;p&gt;前段时间今日头条推出自己的搜索引擎产品：&lt;code&gt;头条搜索&lt;/code&gt;  ，用了一下各方面还是不错，但是并没有放在心上，一是因为只有手机页面，域名还比较长，懒得输入；二是有些功能还不算完善；三是因为不确定这个搜索产品会不会被头条中途腰斩。后面又稍微关注了一下，是因为一部分小站被头条的爬虫给爬死了，让一部分站长苦不堪言，在网上发了一些牢骚。后面也就没怎么关注了，终其原因是没有看到头条搜索的爬虫官网和文档说明，网上能找到的信息屈指可数。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>魅族升级flyme8解决卡logo</title>
+      <link>https://fffou.com/post/19092401/</link>
+      <pubDate>Tue, 24 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/19092401/</guid>
+      <description>&lt;p&gt;前段时间魅族进行flyme8的内测，我就顺势报了名。后面就一直没怎么关注，直到今天刷it新闻看到魅族为多款机型推送体验版更新。瞄了几眼新系统的特性，好像很多令人兴奋的更新，刚好新闻内容里面提供了下载链接，博主就毫不犹豫的把刷机包下载下来。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>LNMP升级Nginx和Openssl到最新版</title>
+      <link>https://fffou.com/post/1991801/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/1991801/</guid>
+      <description>&lt;p&gt;好吧，强迫症又犯了。是该折腾点什么，但是站点是静态站点，能折腾的地方没有动态站点的多，就想着把服务器的LNMP一键包的底层升级一下，于是查看了Nginx和Openssl的版本&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

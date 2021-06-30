@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="dns-prefetch" href="//creativecommons.org" />
+<link rel="dns-prefetch" href="//www.w3.org/" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="Keywords" content="浮游,浮游笔记,笔记,博客,记录">
+    <meta name="description" content="专注于思考、记录与分享">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#e0c684">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="简洁的静态博客构建工具 —— 纸小墨（InkPaper）">
+<meta itemprop="description" content="纸小墨（InkPaper）是一个GO语言编写的开源静态博客构建工具，可以快速搭建博客网站。它无依赖跨平台，配置简单构建快速，注重简洁易用与更优雅的排版。">
+
+
+<meta itemprop="datePublished" content="2015-03-01T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-03-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="116">
+
+
+
+<meta itemprop="keywords" content="设计,写作," />
+<meta property="og:title" content="简洁的静态博客构建工具 —— 纸小墨（InkPaper）" />
+<meta property="og:description" content="纸小墨（InkPaper）是一个GO语言编写的开源静态博客构建工具，可以快速搭建博客网站。它无依赖跨平台，配置简单构建快速，注重简洁易用与更优雅的排版。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fffou.com/post/ink-blog-tool/" />
+<meta property="article:published_time" content="2015-03-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-03-01T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="简洁的静态博客构建工具 —— 纸小墨（InkPaper）"/>
+<meta name="twitter:description" content="纸小墨（InkPaper）是一个GO语言编写的开源静态博客构建工具，可以快速搭建博客网站。它无依赖跨平台，配置简单构建快速，注重简洁易用与更优雅的排版。"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>简洁的静态博客构建工具 —— 纸小墨（InkPaper）</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/style.css">
+	
+
+
+				
+
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://fffou.com">浮游笔记</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://fffou.com/">主页</a>
+				<a href="https://fffou.com/about/">关于</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://fffou.com/">主页</a></li>
+			<li><a href="https://fffou.com/about/">关于</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Mar 1, 2015</span></div>
+				<h1>简洁的静态博客构建工具 —— 纸小墨（InkPaper）</h1>
+			</header>
+			<div class="content">
+				<p>纸小墨（InkPaper）是一个GO语言编写的开源静态博客构建工具，可以快速搭建博客网站。它无依赖跨平台，配置简单构建快速，注重简洁易用与更优雅的排版。</p>
+
+<h3 id="开始上手">开始上手<a href="#开始上手" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>下载并解压 <a href="https://link.fffou.com/go/imeoer_github/">Ink</a>，运行命令 <code>ink preview</code></li>
+</ul>
+
+<blockquote>
+<p>注意：Linux/macOS下，使用 <code>./ink preview</code></p>
+</blockquote>
+
+<ul>
+<li>使用浏览器访问 <code>http://localhost:8000</code> 预览。</li>
+</ul>
+
+<h3 id="特性介绍">特性介绍<a href="#特性介绍" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>YAML格式的配置</li>
+<li>Markdown格式的文章</li>
+<li>无依赖跨平台</li>
+<li>超快的构建速度</li>
+<li>不断改善的主题与排版</li>
+<li>多文章作者支持</li>
+<li>归档与标签自动生成</li>
+<li>保存时实时预览页面</li>
+<li>离线的全文关键字搜索</li>
+</ul>
+
+<h3 id="配置网站">配置网站<a href="#配置网站" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>编辑<code>config.yml</code>，使用如下格式：</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">site<span class="p">:</span><span class="w">
+</span><span class="w">    </span>title<span class="p">:</span><span class="w"> </span>网站标题<span class="w">
+</span><span class="w">    </span>subtitle<span class="p">:</span><span class="w"> </span>网站子标题<span class="w">
+</span><span class="w">    </span>limit<span class="p">:</span><span class="w"> </span>每页可显示的文章数目<span class="w">
+</span><span class="w">    </span>theme<span class="p">:</span><span class="w"> </span>网站主题目录<span class="w">
+</span><span class="w">    </span>comment<span class="p">:</span><span class="w"> </span>评论插件变量(默认为Disqus账户名)<span class="w">
+</span><span class="w">    </span>root<span class="p">:</span><span class="w"> </span>网站根路径<span class="w"> </span><span class="c">#可选</span><span class="w">
+</span><span class="w">    </span>lang<span class="p">:</span><span class="w"> </span>网站语言<span class="w"> </span><span class="c">#支持en, zh, ru, ja，可在theme/config.yml配置</span><span class="w">
+</span><span class="w">    </span>url<span class="p">:</span><span class="w"> </span>网站链接<span class="w"> </span><span class="c">#用于RSS生成</span><span class="w">
+</span><span class="w">    </span>link<span class="p">:</span><span class="w"> </span>文章链接形式<span class="w"> </span><span class="c">#默认为{title}.html，支持{year},{month},{day},{title}变量</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>authors<span class="p">:</span><span class="w">
+</span><span class="w">    </span>作者ID<span class="p">:</span><span class="w">
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>作者名称<span class="w">
+</span><span class="w">        </span>intro<span class="p">:</span><span class="w"> </span>作者简介<span class="w">
+</span><span class="w">        </span>avatar<span class="p">:</span><span class="w"> </span>作者头像路径<span class="w">
+</span><span class="w">
+</span><span class="w"></span>build<span class="p">:</span><span class="w">
+</span><span class="w">    </span>output<span class="p">:</span><span class="w"> </span>构建输出目录<span class="w"> </span><span class="c">#可选, 默认为 &#34;public&#34;</span><span class="w">
+</span><span class="w">    </span>port<span class="p">:</span><span class="w"> </span>预览端口<span class="w">
+</span><span class="w">    </span>copy<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>构建时将会复制的目录/文件<span class="w">
+</span><span class="w">    </span>publish<span class="p">:</span><span class="w"> </span><span class="sd">|
+</span><span class="sd">        ink publish 命令将会执行的脚本</span></code></pre></div>
+<h3 id="创建文章">创建文章<a href="#创建文章" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>在<code>source</code>目录中建立任意<code>.md</code>文件（可置于子文件夹），使用如下格式：</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">title<span class="p">:</span><span class="w"> </span>文章标题<span class="w">
+</span><span class="w"></span>date<span class="p">:</span><span class="w"> </span>年-月-日<span class="w"> </span>时<span class="p">:</span>分<span class="p">:</span>秒<span class="w"> </span><span class="c">#创建时间，可加时区如&#34; +0800&#34;</span><span class="w">
+</span><span class="w"></span>update<span class="p">:</span><span class="w"> </span>年-月-日<span class="w"> </span>时<span class="p">:</span>分<span class="p">:</span>秒<span class="w"> </span><span class="c">#更新时间，可选，可加时区如&#34; +0800&#34;</span><span class="w">
+</span><span class="w"></span>author<span class="p">:</span><span class="w"> </span>作者ID<span class="w">
+</span><span class="w"></span>cover<span class="p">:</span><span class="w"> </span>题图链接<span class="w"> </span><span class="c">#可选</span><span class="w">
+</span><span class="w"></span>draft<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c">#草稿，可选</span><span class="w">
+</span><span class="w"></span>top<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c">#置顶文章，可选</span><span class="w">
+</span><span class="w"></span>preview<span class="p">:</span><span class="w"> </span>文章预览，也可在正文中使用&lt;!--more--&gt;分割<span class="w"> </span><span class="c">#可选</span><span class="w">
+</span><span class="w"></span>tags<span class="p">:</span><span class="w"> </span><span class="c">#可选</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>标签1<span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>标签2<span class="w">
+</span><span class="w"></span>type<span class="p">:</span><span class="w"> </span>post<span class="w"> </span><span class="c">#指定类型为文章(post)或页面(page)，可选</span><span class="w">
+</span><span class="w"></span>hide<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c">#隐藏文章，只可通过链接访问，可选</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>--<span class="sd">-
+</span><span class="sd">
+</span><span class="sd">Markdown格式的正文</span></code></pre></div>
+<h3 id="发布博客">发布博客<a href="#发布博客" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>在博客目录下运行<code>ink publish</code>命令自动构建博客并发布。</li>
+<li>或运行<code>ink build</code>命令将生成的<code>public</code>目录下的内容手动部署。</li>
+</ul>
+
+<blockquote>
+<p>Tips: 在使用<code>ink preview</code>命令时，编辑保存文件后，博客会自动重新构建并刷新浏览器页面。</p>
+</blockquote>
+
+<h2 id="定制支持">定制支持<a href="#定制支持" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="修改主题">修改主题<a href="#修改主题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>默认主题在<code>theme</code>目录下，修改源代码后在该目录下运行<code>npm install</code>与<code>npm run build</code>重新构建。</p>
+
+<p>页面包含<code>page.html</code>（文章列表）及<code>article.html</code>（文章）等，所有页面均支持<a href="https://link.fffou.com/go/golang-pkg-html-template/">GO语言HTML模板</a>语法，可引用变量。</p>
+
+<h3 id="添加页面">添加页面<a href="#添加页面" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>在<code>source</code>目录下创建的任意<code>.html</code>文件将被复制，这些文件中可引用<code>config.yml</code>中site字段下的所有变量。</p>
+
+<h3 id="博客迁移-beta">博客迁移(Beta)<a href="#博客迁移-beta" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>纸小墨提供简单的Jeklly/Hexo博客文章格式转换，使用命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">ink convert /path/_posts</code></pre></div>
+<h3 id="源码编译">源码编译<a href="#源码编译" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>本地运行</p>
+
+<ol>
+<li>配置<a href="https://link.fffou.com/go/golang_doc_install/">GO</a>语言环境。</li>
+<li>运行命令<code>go get github.com/InkProject/ink</code>，编译并获取ink。</li>
+<li>运行命令<code>ink preview $GOPATH/src/github.com/InkProject/ink/template</code>，预览博客。</li>
+</ol>
+
+<p>Docker构建（示例）</p>
+
+<ol>
+<li>Clone源码 <code>git clone git@github.com:InkProject/ink.git</code>。</li>
+<li>源码目录下构建镜像<code>docker build -t ink .</code>。</li>
+<li>运行容器<code>docker run -p 8000:80 ink</code>。</li>
+</ol>
+
+<h2 id="主题">主题<a href="#主题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ul>
+<li>Dark(Official Theme): <a href="https://link.fffou.com/go/InkProject-ink-theme-dark/">https://github.com/InkProject/ink-theme-dark</a></li>
+<li>simple: <a href="https://link.fffou.com/go/myiq-ink-simple/">https://github.com/myiq/ink-simple</a></li>
+</ul>
+
+<h2 id="相关链接">相关链接<a href="#相关链接" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ul>
+<li><a href="https://link.fffou.com/go/segmentfault-a-1190000009084954/">InkPaper 最佳实践</a></li>
+</ul>
+
+<h2 id="反馈贡献">反馈贡献<a href="#反馈贡献" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>纸小墨基于 <a href="https://link.fffou.com/go/creativecommons-licenses-by-nc-4.0/">CC Attribution-NonCommercial License 4.0</a> 协议，目前为止它仍然是个非成熟的开源项目，非常欢迎任何人的任何贡献。如有问题可报告至 <a href="https://link.fffou.com/go/InkProject-ink-issues/">https://github.com/InkProject/ink/issues</a>。</p>
+
+<h2 id="更新历史">更新历史<a href="#更新历史" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ul>
+<li>[2016-07-11] 修复诸多Issue与合并一些PR。</li>
+<li>[2015-08-15] 一些Bug修复，新增RSS订阅支持，主题改善。</li>
+<li>[2015-07-04] 数项Bug修复与主题改善，支持置顶，多语言，子模板。</li>
+<li>[2015-06-04] 编译更多平台版本，增加标签与存档页。</li>
+<li>[2015-03-01] Beta版本，基础功能完成。</li>
+</ul>
+
+<h2 id="更新计划">更新计划<a href="#更新计划" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ul>
+<li>排版深度优化</li>
+<li>纸小墨编辑器</li>
+</ul>
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://fffou.com/tags/%E8%AE%BE%E8%AE%A1">设计</a></span><span class="tag"><a href="https://fffou.com/tags/%E5%86%99%E4%BD%9C">写作</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2015-03-01 08:00 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://fffou.com/post/ink-blog-tool-en/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>An Elegant Static Blog Generator —— InkPaper</span>
+			</a>
+			<a class="prev-post" href="https://fffou.com/post/creating-a-new-theme/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Creating a New Theme</span>
+			</a>
+		</div>
+		<div id="comments" class="thin"><div id="comment"></div>
+        <script>
+        </script>
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2021 <a href="https://fffou.com">浮游笔记</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://fffou.com/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/js/bundle.js"></script>
+
+
+</body>
+
+</html>

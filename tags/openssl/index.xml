@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>openssl on 浮游笔记</title>
+    <link>https://fffou.com/tags/openssl/</link>
+    <description>Recent content in openssl on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 18 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LNMP升级Nginx和Openssl到最新版</title>
+      <link>https://fffou.com/post/1991801/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/1991801/</guid>
+      <description>&lt;p&gt;好吧，强迫症又犯了。是该折腾点什么，但是站点是静态站点，能折腾的地方没有动态站点的多，就想着把服务器的LNMP一键包的底层升级一下，于是查看了Nginx和Openssl的版本&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

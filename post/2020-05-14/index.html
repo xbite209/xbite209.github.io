@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="dns-prefetch" href="//creativecommons.org" />
+<link rel="dns-prefetch" href="//www.w3.org/" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="Keywords" content="浮游,浮游笔记,笔记,博客,记录">
+    <meta name="description" content="专注于思考、记录与分享">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#e0c684">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="为hugo主题hermit归档页面增加分页功能">
+<meta itemprop="description" content="站点程序从动态切换到静态已经很久了，而我用的静态程序是hugo，不得不说hugo各方面都比较不错的，就是很难找到称心如意的主题。
+今天某个博友问我文章归档页面是怎么样实现页面分页的，才想起去年通过搜索引擎找了好多主题，好不容易才找到这个hugo主题hermit，因为觉得归档页的页面很简洁，所以直接把主题的归档页面当作了站点首页，期间遇到主题在新版本的hugo中存在小问题 ，把hugo退回到0.56.3版本。
+直到后面遇到实在不能忍受的问题，就是这款主题归档页面竟然没有分页功能！要知道我这个人是比较追求稳定的，万一哪天文章多起来了，光是归档页面估计都能拉好几个屏幕那么长，这是我不能接受的。得想办法修改主题以实现这个功能，但是我不怎么会修改hugo主题，后面还是一咬牙，仔细看了看hugo官方文档，紧接着再翻看了十几二十个带翻页功能的hugo主题，终于看出了实现归档页面分页功能的可能：那就是为什么不通过查看别的hugo主题，文章列表分页功能是怎么实现的，想办法移植到这款主题的归档页面。
+事实证明我的想法是对的，后面通过左拼右凑，还真实现了hermit主题归档页面的分页功能。期间也给其他没有归档分页功能的hugo主题弄上了分页功能，但是跟hermit主题实现分页功能在代码上有一点差异，所以本文标题才特意指定hermit，其他hugo主题也可以参考本文，对有差异的地方自行修改实现。
+这里就以hugo主题hermit为例，记录增加归档页面的分页功能的实现步骤：
+找到归档页面的源码部分，添加分页代码 hermit主题的归档页面源码在layouts/_default/list.html文件中:
+如下代码：
+ {{ define &quot;header&quot; }} {{ partialCached &quot;header.html&quot; . }} {{ end }} {{ define &quot;main&quot; }} &lt;main class=&quot;site-main section-inner thin animated fadeIn faster&quot;&gt; &lt;h1&gt;{{ .Title }}&lt;/h1&gt; {{- if .Content }} &lt;div class=&quot;content&quot;&gt; {{ .Content }} &lt;/div&gt; {{- end }} {{- range .Data.Pages.GroupByDate &quot;2006&quot; }} &lt;div class=&quot;posts-group&quot;&gt; &lt;div class=&quot;post-year&quot; id=&quot;{{ .Key }}&quot;&gt;{{ .Key }}&lt;/div&gt; &lt;ul class=&quot;posts-list&quot;&gt; {{- range .Pages }} &lt;li class=&quot;post-item&quot;&gt; &lt;a href=&quot;{{.">
+
+
+<meta itemprop="datePublished" content="2020-05-14T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-05-14T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="926">
+
+
+
+<meta itemprop="keywords" content="hugo," />
+<meta property="og:title" content="为hugo主题hermit归档页面增加分页功能" />
+<meta property="og:description" content="站点程序从动态切换到静态已经很久了，而我用的静态程序是hugo，不得不说hugo各方面都比较不错的，就是很难找到称心如意的主题。
+今天某个博友问我文章归档页面是怎么样实现页面分页的，才想起去年通过搜索引擎找了好多主题，好不容易才找到这个hugo主题hermit，因为觉得归档页的页面很简洁，所以直接把主题的归档页面当作了站点首页，期间遇到主题在新版本的hugo中存在小问题 ，把hugo退回到0.56.3版本。
+直到后面遇到实在不能忍受的问题，就是这款主题归档页面竟然没有分页功能！要知道我这个人是比较追求稳定的，万一哪天文章多起来了，光是归档页面估计都能拉好几个屏幕那么长，这是我不能接受的。得想办法修改主题以实现这个功能，但是我不怎么会修改hugo主题，后面还是一咬牙，仔细看了看hugo官方文档，紧接着再翻看了十几二十个带翻页功能的hugo主题，终于看出了实现归档页面分页功能的可能：那就是为什么不通过查看别的hugo主题，文章列表分页功能是怎么实现的，想办法移植到这款主题的归档页面。
+事实证明我的想法是对的，后面通过左拼右凑，还真实现了hermit主题归档页面的分页功能。期间也给其他没有归档分页功能的hugo主题弄上了分页功能，但是跟hermit主题实现分页功能在代码上有一点差异，所以本文标题才特意指定hermit，其他hugo主题也可以参考本文，对有差异的地方自行修改实现。
+这里就以hugo主题hermit为例，记录增加归档页面的分页功能的实现步骤：
+找到归档页面的源码部分，添加分页代码 hermit主题的归档页面源码在layouts/_default/list.html文件中:
+如下代码：
+ {{ define &quot;header&quot; }} {{ partialCached &quot;header.html&quot; . }} {{ end }} {{ define &quot;main&quot; }} &lt;main class=&quot;site-main section-inner thin animated fadeIn faster&quot;&gt; &lt;h1&gt;{{ .Title }}&lt;/h1&gt; {{- if .Content }} &lt;div class=&quot;content&quot;&gt; {{ .Content }} &lt;/div&gt; {{- end }} {{- range .Data.Pages.GroupByDate &quot;2006&quot; }} &lt;div class=&quot;posts-group&quot;&gt; &lt;div class=&quot;post-year&quot; id=&quot;{{ .Key }}&quot;&gt;{{ .Key }}&lt;/div&gt; &lt;ul class=&quot;posts-list&quot;&gt; {{- range .Pages }} &lt;li class=&quot;post-item&quot;&gt; &lt;a href=&quot;{{." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fffou.com/post/2020-05-14/" />
+<meta property="article:published_time" content="2020-05-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-14T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="为hugo主题hermit归档页面增加分页功能"/>
+<meta name="twitter:description" content="站点程序从动态切换到静态已经很久了，而我用的静态程序是hugo，不得不说hugo各方面都比较不错的，就是很难找到称心如意的主题。
+今天某个博友问我文章归档页面是怎么样实现页面分页的，才想起去年通过搜索引擎找了好多主题，好不容易才找到这个hugo主题hermit，因为觉得归档页的页面很简洁，所以直接把主题的归档页面当作了站点首页，期间遇到主题在新版本的hugo中存在小问题 ，把hugo退回到0.56.3版本。
+直到后面遇到实在不能忍受的问题，就是这款主题归档页面竟然没有分页功能！要知道我这个人是比较追求稳定的，万一哪天文章多起来了，光是归档页面估计都能拉好几个屏幕那么长，这是我不能接受的。得想办法修改主题以实现这个功能，但是我不怎么会修改hugo主题，后面还是一咬牙，仔细看了看hugo官方文档，紧接着再翻看了十几二十个带翻页功能的hugo主题，终于看出了实现归档页面分页功能的可能：那就是为什么不通过查看别的hugo主题，文章列表分页功能是怎么实现的，想办法移植到这款主题的归档页面。
+事实证明我的想法是对的，后面通过左拼右凑，还真实现了hermit主题归档页面的分页功能。期间也给其他没有归档分页功能的hugo主题弄上了分页功能，但是跟hermit主题实现分页功能在代码上有一点差异，所以本文标题才特意指定hermit，其他hugo主题也可以参考本文，对有差异的地方自行修改实现。
+这里就以hugo主题hermit为例，记录增加归档页面的分页功能的实现步骤：
+找到归档页面的源码部分，添加分页代码 hermit主题的归档页面源码在layouts/_default/list.html文件中:
+如下代码：
+ {{ define &quot;header&quot; }} {{ partialCached &quot;header.html&quot; . }} {{ end }} {{ define &quot;main&quot; }} &lt;main class=&quot;site-main section-inner thin animated fadeIn faster&quot;&gt; &lt;h1&gt;{{ .Title }}&lt;/h1&gt; {{- if .Content }} &lt;div class=&quot;content&quot;&gt; {{ .Content }} &lt;/div&gt; {{- end }} {{- range .Data.Pages.GroupByDate &quot;2006&quot; }} &lt;div class=&quot;posts-group&quot;&gt; &lt;div class=&quot;post-year&quot; id=&quot;{{ .Key }}&quot;&gt;{{ .Key }}&lt;/div&gt; &lt;ul class=&quot;posts-list&quot;&gt; {{- range .Pages }} &lt;li class=&quot;post-item&quot;&gt; &lt;a href=&quot;{{."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>为hugo主题hermit归档页面增加分页功能</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/style.css">
+	
+
+
+				
+
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://fffou.com">浮游笔记</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://fffou.com/">主页</a>
+				<a href="https://fffou.com/about/">关于</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://fffou.com/">主页</a></li>
+			<li><a href="https://fffou.com/about/">关于</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>May 14, 2020</span></div>
+				<h1>为hugo主题hermit归档页面增加分页功能</h1>
+			</header>
+			<div class="content">
+				
+
+<p>站点程序从动态切换到静态已经很久了，而我用的静态程序是hugo，不得不说hugo各方面都比较不错的，就是很难找到称心如意的主题。</p>
+
+<p>今天某个博友问我文章归档页面是怎么样实现页面分页的，才想起去年通过搜索引擎找了好多主题，好不容易才找到这个hugo主题hermit，因为觉得归档页的页面很简洁，所以直接把主题的归档页面当作了站点首页，期间遇到主题在新版本的hugo中存在<a href="../191214/">小问题</a> ，把hugo退回到0.56.3版本。</p>
+
+<p>直到后面遇到实在不能忍受的问题，就是这款主题归档页面竟然没有分页功能！要知道我这个人是比较追求稳定的，万一哪天文章多起来了，光是归档页面估计都能拉好几个屏幕那么长，这是我不能接受的。得想办法修改主题以实现这个功能，但是我不怎么会修改hugo主题，后面还是一咬牙，仔细看了看hugo官方文档，紧接着再翻看了十几二十个带翻页功能的hugo主题，终于看出了实现归档页面分页功能的可能：那就是为什么不通过查看别的hugo主题，文章列表分页功能是怎么实现的，想办法移植到这款主题的归档页面。</p>
+
+<p>事实证明我的想法是对的，后面通过左拼右凑，还真实现了hermit主题归档页面的分页功能。期间也给其他没有归档分页功能的hugo主题弄上了分页功能，但是跟hermit主题实现分页功能在代码上有一点差异，所以本文标题才特意指定hermit，其他hugo主题也可以参考本文，对有差异的地方自行修改实现。</p>
+
+<p>这里就以hugo主题hermit为例，记录增加归档页面的分页功能的实现步骤：</p>
+
+<h3 id="找到归档页面的源码部分-添加分页代码">找到归档页面的源码部分，添加分页代码<a href="#找到归档页面的源码部分-添加分页代码" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>hermit主题的归档页面源码在<code>layouts/_default/list.html</code>文件中:</p>
+
+<p>如下代码：</p>
+
+<pre><code> {{ define &quot;header&quot; }}
+ {{ partialCached &quot;header.html&quot; . }}
+ {{ end }}
+
+ {{ define &quot;main&quot; }}
+    &lt;main class=&quot;site-main section-inner thin animated fadeIn faster&quot;&gt;
+        &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+        {{- if .Content }}
+        &lt;div class=&quot;content&quot;&gt;
+            {{ .Content }}
+        &lt;/div&gt;
+        {{- end }}
+        {{- range .Data.Pages.GroupByDate &quot;2006&quot; }}
+        &lt;div class=&quot;posts-group&quot;&gt;
+            &lt;div class=&quot;post-year&quot; id=&quot;{{ .Key }}&quot;&gt;{{ .Key }}&lt;/div&gt;
+            &lt;ul class=&quot;posts-list&quot;&gt;
+                {{- range .Pages }}
+                &lt;li class=&quot;post-item&quot;&gt;
+                    &lt;a href=&quot;{{.Permalink}}&quot;&gt;
+                        &lt;span class=&quot;post-title&quot;&gt;{{.Title}}&lt;/span&gt;
+                        &lt;span class=&quot;post-day&quot;&gt;{{ .Date.Format .Site.Params.dateformShort }}&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                {{- end }}
+             &lt;/ul&gt;
+         &lt;/div&gt;
+        {{- end }}
+     &lt;/main&gt;
+ {{ end }}
+
+ {{ define &quot;footer&quot; }}
+ {{ partialCached &quot;footer.html&quot; . }}
+ {{ end }}
+</code></pre>
+
+<p>修改以下代码：</p>
+
+<pre><code> {{- range .Data.Pages.GroupByDate &quot;2006&quot; }}  
+</code></pre>
+
+<p>为</p>
+
+<pre><code> {{- range (.Paginate .Pages).Pages.GroupByDate &quot;2006&quot; }}  
+</code></pre>
+
+<p>那么修改后的代码就是：</p>
+
+<pre><code> {{ define &quot;header&quot; }}
+ {{ partialCached &quot;header.html&quot; . }}
+ {{ end }}
+
+ {{ define &quot;main&quot; }}
+    &lt;main class=&quot;site-main section-inner thin animated fadeIn faster&quot;&gt;
+        &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+        {{- if .Content }}
+        &lt;div class=&quot;content&quot;&gt;
+            {{ .Content }}
+        &lt;/div&gt;
+        {{- end }}
+        {{- range (.Paginate .Pages).Pages.GroupByDate &quot;2006&quot; }}
+        &lt;div class=&quot;posts-group&quot;&gt;
+            &lt;div class=&quot;post-year&quot; id=&quot;{{ .Key }}&quot;&gt;{{ .Key }}&lt;/div&gt;
+            &lt;ul class=&quot;posts-list&quot;&gt;
+                {{- range .Pages }}
+                &lt;li class=&quot;post-item&quot;&gt;
+                        &lt;a href=&quot;{{.Permalink}}&quot;&gt;
+                        &lt;span class=&quot;post-title&quot;&gt;{{.Title}}&lt;/span&gt;
+                        &lt;span class=&quot;post-day&quot;&gt;{{ .Date.Format .Site.Params.dateformShort }}&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                {{- end }}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        {{- end }}
+
+     &lt;/main&gt;
+ {{ end }}
+
+ {{ define &quot;footer&quot; }}
+ {{ partialCached &quot;footer.html&quot; . }}
+ {{ end }}
+</code></pre>
+
+<p>这时候hugo主题hermit归档页面已经实现分页功能，而我实现的原理就是在hermit这个主题的归档页面中，把展示文章列表的代码部分，也就是上面那行代码，在页面元素中增加了分页，实现了分页展示功能。其他hugo主题跟hermit主题相比，在修改归档页面增加分页功能这一步中可能有一点差异，而我所说的差异就这一步的代码差异，需要自己去尝试修改。</p>
+
+<h3 id="为归档页面增加底部分页按钮">为归档页面增加底部分页按钮<a href="#为归档页面增加底部分页按钮" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>做完上面那一步，大家会发现归档页面的文章已经变少了，说明归档页面分页功能已经实现，所有文章列表被分成了几个页面。我们怎么查看其他分出来的页面呢？又怎么切换到上一页或下一页呢？难道在地址栏手动改动页面地址进行页面切换？当然不是，这一步就是为已经具备分页功能的归档页面增加底部页面切换按钮。</p>
+
+<p>继续查看归档页面的代码：</p>
+
+<pre><code> {{ define &quot;header&quot; }}
+ {{ partialCached &quot;header.html&quot; . }}
+ {{ end }}
+
+ {{ define &quot;main&quot; }}
+    &lt;main class=&quot;site-main section-inner thin animated fadeIn faster&quot;&gt;
+        &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+        {{- if .Content }}
+        &lt;div class=&quot;content&quot;&gt;
+            {{ .Content }}
+        &lt;/div&gt;
+        {{- end }}
+        {{- range (.Paginate .Pages).Pages.GroupByDate &quot;2006&quot; }}
+        &lt;div class=&quot;posts-group&quot;&gt;
+            &lt;div class=&quot;post-year&quot; id=&quot;{{ .Key }}&quot;&gt;{{ .Key }}&lt;/div&gt;
+            &lt;ul class=&quot;posts-list&quot;&gt;
+                {{- range .Pages }}
+                &lt;li class=&quot;post-item&quot;&gt;
+                        &lt;a href=&quot;{{.Permalink}}&quot;&gt;
+                        &lt;span class=&quot;post-title&quot;&gt;{{.Title}}&lt;/span&gt;
+                        &lt;span class=&quot;post-day&quot;&gt;{{ .Date.Format .Site.Params.dateformShort }}&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                {{- end }}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        {{- end }}
+
+     &lt;/main&gt;
+ {{ end }}
+
+ {{ define &quot;footer&quot; }}
+ {{ partialCached &quot;footer.html&quot; . }}
+ {{ end }}  
+</code></pre>
+
+<p>增加以下代码到合适的部分，也就是文章列表的下面：</p>
+
+<pre><code> {{ partial &quot;pagination.html&quot; . }}  
+</code></pre>
+
+<p>那么修改后的代码就是这样：</p>
+
+<pre><code> {{ define &quot;header&quot; }}
+ {{ partialCached &quot;header.html&quot; . }}
+ {{ end }}
+
+ {{ define &quot;main&quot; }}
+    &lt;main class=&quot;site-main section-inner thin animated fadeIn faster&quot;&gt;
+        &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+        {{- if .Content }}
+        &lt;div class=&quot;content&quot;&gt;
+            {{ .Content }}
+        &lt;/div&gt;
+        {{- end }}
+        {{- range (.Paginate .Pages).Pages.GroupByDate &quot;2006&quot; }}
+        &lt;div class=&quot;posts-group&quot;&gt;
+            &lt;div class=&quot;post-year&quot; id=&quot;{{ .Key }}&quot;&gt;{{ .Key }}&lt;/div&gt;
+            &lt;ul class=&quot;posts-list&quot;&gt;
+                {{- range .Pages }}
+                &lt;li class=&quot;post-item&quot;&gt;
+                        &lt;a href=&quot;{{.Permalink}}&quot;&gt;
+                        &lt;span class=&quot;post-title&quot;&gt;{{.Title}}&lt;/span&gt;
+                        &lt;span class=&quot;post-day&quot;&gt;{{ .Date.Format .Site.Params.dateformShort }}&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                {{- end }}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        {{- end }}
+        {{ partial &quot;pagination.html&quot; . }}
+     &lt;/main&gt;
+ {{ end }}
+
+ {{ define &quot;footer&quot; }}
+ {{ partialCached &quot;footer.html&quot; . }}
+ {{ end }}  
+</code></pre>
+
+<p>上面通过引用了<code>layouts/partials</code>目录下的 <code>pagination.html</code>配置文件，以实现在这个归档页面底部添加可以切换分页的分页按钮功能，那么下面将有两种分页按钮供大家选择，选择自己喜欢的就行了：</p>
+
+<h4 id="精简型分页按钮">精简型分页按钮<a href="#精简型分页按钮" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>下图就是精简型分页按钮：</p>
+
+<p><img src="https://src.fffou.com/file/ffcode/img/2020-05-14-1.png" alt="精简型分页按钮" title="精简型分页按钮" /></p>
+
+<p>那么怎么实现精简型分页按钮方式呢？首先进入<code>layouts/partials</code>目录新建<code>pagination.html</code>文件，添加以下代码：</p>
+
+<pre><code> {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+ &lt;div class=&quot;pagination&quot;&gt;
+     {{- if .Paginator.HasPrev }}
+     &lt;a class=&quot;pagination__item pagination__item--prev btn&quot; href=&quot;{{ .Paginator.Prev.URL }}&quot;&gt;«&lt;/a&gt;
+     {{- end }}
+     &lt;span class=&quot;pagination__item pagination__item--current&quot;&gt;{{ .Paginator.PageNumber }}/{{ .Paginator.TotalPages }}&lt;/span&gt;
+     {{- if .Paginator.HasNext }}
+     &lt;a class=&quot;pagination__item pagination__item--next btn&quot; href=&quot;{{ .Paginator.Next.URL }}&quot;&gt;»&lt;/a&gt;
+     {{- end }}
+ &lt;/div&gt;
+ {{ end }}  
+</code></pre>
+
+<p>然后在对应的css样式文件中添加以下样式：</p>
+
+<pre><code> .pagination {
+     margin-top: 20px
+ }
+
+ .pagination__item {
+    display: inline-block;
+    padding: 10px 15px;
+     font-weight: 700;
+     color: #000;
+     background: #c6c6c7
+ }
+
+ .pagination__item:hover, .pagination__item--current {
+    color: #fff;
+    background: #535e75
+ }  
+</code></pre>
+
+<h4 id="数字型分页按钮">数字型分页按钮<a href="#数字型分页按钮" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>下图就是数字型分页按钮：</p>
+
+<p><img src="https://src.fffou.com/file/ffcode/img/2020-05-14-2.png" alt="数字型分页按钮" title="数字型分页按钮" /></p>
+
+<p>上面已经实现精简型分页按钮方式，那么又怎么实现数字型分页按钮方式呢？首先进入<code>layouts/partials</code>目录新建<code>pagination.html</code>文件，添加以下代码：</p>
+
+<pre><code> {{ $pag := $.Paginator }}
+ {{ if gt $pag.TotalPages 1 }}
+ &lt;ul class=&quot;pagination&quot;&gt;
+     {{ with $pag.First }}
+     &lt;!-- &lt;li class=&quot;page-item {{ if not $pag.HasPrev }}disabled{{ end }}&quot;&gt;
+         &lt;span class=&quot;page-link&quot;&gt;
+             &lt;a href=&quot;{{ .URL }}&quot; aria-label=&quot;First&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;laquo;&amp;laquo;&lt;/span&gt;&lt;/a&gt;
+         &lt;/span&gt;
+     &lt;/li&gt; --&gt;
+     {{ end }}
+     &lt;!-- &lt;li class=&quot;page-item {{ if not $pag.HasPrev }}disabled{{ end }}&quot;&gt;
+         &lt;span class=&quot;page-link&quot;&gt;
+             &lt;a href=&quot;{{ if $pag.HasPrev }}{{ $pag.Prev.URL }}{{ end }}&quot; aria-label=&quot;Previous&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;laquo;&lt;/span&gt;&lt;/a&gt;
+         &lt;/span&gt;
+     &lt;/li&gt; --&gt;
+     {{ $.Scratch.Set &quot;__paginator.ellipsed&quot; false }}
+     {{ range $pag.Pagers }}
+     {{ $right := sub .TotalPages .PageNumber }}
+     {{ $showNumber := or (le .PageNumber 1) (eq $right 0) }}
+     {{ $showNumber := or $showNumber (and (gt .PageNumber (sub $pag.PageNumber 3)) (lt .PageNumber (add $pag.PageNumber 3)))  }}
+     {{ if $showNumber }}
+         {{ $.Scratch.Set &quot;__paginator.ellipsed&quot; false }}
+         {{ $.Scratch.Set &quot;__paginator.shouldEllipse&quot; false }}
+     {{ else }}
+         {{ $.Scratch.Set &quot;__paginator.shouldEllipse&quot; (not ($.Scratch.Get &quot;__paginator.ellipsed&quot;) ) }}
+         {{ $.Scratch.Set &quot;__paginator.ellipsed&quot; true }}
+     {{ end }}
+     {{ if $showNumber }}
+     &lt;li class=&quot;page-item {{ if eq . $pag }}active{{ end }}&quot;&gt;
+         &lt;span class=&quot;page-link&quot;&gt;
+             &lt;a href=&quot;{{ .URL }}&quot;&gt;{{ .PageNumber }}&lt;/a&gt;&lt;/li&gt;
+         &lt;/span&gt;
+     {{ else if ($.Scratch.Get &quot;__paginator.shouldEllipse&quot;) }}
+     &lt;li class=&quot;page-item &quot;&gt;&lt;span class=&quot;page-link&quot; aria-hidden=&quot;true&quot;&gt;&amp;hellip;&lt;/span&gt;&lt;/li&gt;
+     {{ end }}
+     {{ end }}
+     &lt;!-- &lt;li class=&quot;page-item {{ if not $pag.HasNext }}disabled{{ end }}&quot;&gt;
+         &lt;span class=&quot;page-link&quot;&gt;
+             &lt;a href=&quot;{{ if $pag.HasNext }}{{ $pag.Next.URL }}{{ end }}&quot; aria-label=&quot;Next&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;raquo;&lt;/span&gt;&lt;/a&gt;
+         &lt;/span&gt;
+     &lt;/li&gt; --&gt;
+     &lt;!-- {{ with $pag.Last }}
+     &lt;li class=&quot;page-item {{ if not $pag.HasNext }}disabled{{ end }}&quot;&gt;
+         &lt;span class=&quot;page-link&quot;&gt;
+         &lt;a href=&quot;{{ .URL }}&quot; aria-label=&quot;Last&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;raquo;&amp;raquo;&lt;/span&gt;&lt;/a&gt;
+     &lt;/span&gt;
+     &lt;/li&gt;
+     {{ end }} --&gt;
+ &lt;/ul&gt;
+ {{ end }}  
+</code></pre>
+
+<p>然后在对应的css样式文件中添加以下样式:</p>
+
+<pre><code> .pagination {
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     list-style: none;
+     white-space: nowrap;
+     width: 100%;
+     padding-top: 2em
+ }
+
+ .pagination a {
+     -webkit-font-smoothing: antialiased;
+     font-size: 12px;
+     color: #bfbfbf;
+     letter-spacing: .1em;
+     font-weight: 700;
+     padding: 5px;
+     text-decoration: none;
+     transition: .3s
+ }
+
+ .pagination li {
+     padding-bottom: 3px;
+     margin: 0 20px;
+     box-sizing: border-box;
+     position: relative;
+     display: inline
+ }
+
+ .pagination li.disabled {
+     display: none
+ }
+
+ .pagination li:hover a {
+     color: #000
+ }
+
+ .dark-theme .pagination li:hover a {
+     color: #fff
+ }
+
+ .pagination li:before,.pagination li:after {
+     position: absolute;
+     content: &quot;&quot;;
+     width: 0;
+     height: 3px;
+     background: #000;
+     transition: .3s;
+     bottom: 0
+ }
+
+ .dark-theme .pagination li:before,.dark-theme .pagination li:after {
+     background: #fff
+ }
+
+ .pagination li:before .active,.pagination li:after .active {
+     width: 100%
+ }
+
+ .pagination li:before {
+     left: 50%
+ }
+
+ .pagination li:after {
+     right: 50%
+ }
+
+ .pagination li:hover:before,.pagination li:hover:after {
+     width: 50%
+ }
+
+ .pagination li.active a {
+     color: #000
+ }
+
+ .dark-theme .pagination li.active a {
+     color: #fff
+ }
+
+ .pagination li.active:before,.pagination li.active:after {
+     width: 60%
+ }/*!Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify*/.prettyprint {
+     background: #2d2d2d;
+     font-family: Menlo,Bitstream Vera Sans Mono,DejaVu Sans Mono,Monaco,Consolas,monospace;
+     border: 0!important
+ }  
+</code></pre>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://fffou.com/tags/hugo">hugo</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-14 08:00 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://fffou.com/post/2020-07-25/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>nginx location配置中的root、alias用法区别之域名二级目录绑定其他网页目录</span>
+			</a>
+			<a class="prev-post" href="https://fffou.com/post/2020-02-10/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>利用vps配合aria2以及AriaNg搭建自己的离线下载服务器</span>
+			</a>
+		</div>
+		<div id="comments" class="thin"><div id="comment"></div>
+        <script>
+        </script>
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2021 <a href="https://fffou.com">浮游笔记</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://fffou.com/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/js/bundle.js"></script>
+
+
+</body>
+
+</html>

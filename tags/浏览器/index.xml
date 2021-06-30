@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>浏览器 on 浮游笔记</title>
+    <link>https://fffou.com/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</link>
+    <description>Recent content in 浏览器 on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 26 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Chrome类浏览器汉化教程</title>
+      <link>https://fffou.com/post/edge/</link>
+      <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/edge/</guid>
+      <description>&lt;p&gt;昨天看到it之家，看到了微软基于chroium的浏览器有泄露版的下载。作为软粉，怀着忐忑的心情下了安装包，因为我用的不是win10，因为Edge都是win10下产生的，我担心微软没有做向下兼容的准备。
+最终我的顾虑打消了，浏览器在我的win8.1用的好好的。虽然是测试版，但各方面都挺满意，据网友说比chrome还省内存。其实我用了一下，感觉还好，也不知道是不是错觉，对微软的优化能力还是抱有一丝的期待自行的。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

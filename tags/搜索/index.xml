@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>搜索 on 浮游笔记</title>
+    <link>https://fffou.com/tags/%E6%90%9C%E7%B4%A2/</link>
+    <description>Recent content in 搜索 on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 25 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/%E6%90%9C%E7%B4%A2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何判断头条搜索的蜘蛛是否真实</title>
+      <link>https://fffou.com/post/19112601/</link>
+      <pubDate>Mon, 25 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/19112601/</guid>
+      <description>&lt;p&gt;前段时间今日头条推出自己的搜索引擎产品：&lt;code&gt;头条搜索&lt;/code&gt;  ，用了一下各方面还是不错，但是并没有放在心上，一是因为只有手机页面，域名还比较长，懒得输入；二是有些功能还不算完善；三是因为不确定这个搜索产品会不会被头条中途腰斩。后面又稍微关注了一下，是因为一部分小站被头条的爬虫给爬死了，让一部分站长苦不堪言，在网上发了一些牢骚。后面也就没怎么关注了，终其原因是没有看到头条搜索的爬虫官网和文档说明，网上能找到的信息屈指可数。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>deepin on 浮游笔记</title>
+    <link>https://fffou.com/tags/deepin/</link>
+    <description>Recent content in deepin on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 15 Jul 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/deepin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>网易云音乐 For Linux</title>
+      <link>https://fffou.com/post/167151/</link>
+      <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/167151/</guid>
+      <description>&lt;p&gt;网易云音乐（以下简称云音乐）是国内新兴的音乐软件，其由网易公司开发。众所周知，国内的音乐市场已被阿里系，腾讯系及酷狗和酷我所占领&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

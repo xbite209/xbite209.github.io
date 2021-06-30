@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>对象云存储 on 浮游笔记</title>
+    <link>https://fffou.com/tags/%E5%AF%B9%E8%B1%A1%E4%BA%91%E5%AD%98%E5%82%A8/</link>
+    <description>Recent content in 对象云存储 on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sat, 16 Jul 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/%E5%AF%B9%E8%B1%A1%E4%BA%91%E5%AD%98%E5%82%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关于七牛云</title>
+      <link>https://fffou.com/post/167161/</link>
+      <pubDate>Sat, 16 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/167161/</guid>
+      <description>&lt;p&gt;在现在的大数据时代，我们搭建网站和大型的数据程序，渐渐的我们发现，存储容量慢慢变成了瓶颈，然而我们&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

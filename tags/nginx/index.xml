@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nginx on 浮游笔记</title>
+    <link>https://fffou.com/tags/nginx/</link>
+    <description>Recent content in nginx on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sat, 25 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>nginx location配置中的root、alias用法区别之域名二级目录绑定其他网页目录</title>
+      <link>https://fffou.com/post/2020-07-25/</link>
+      <pubDate>Sat, 25 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/2020-07-25/</guid>
+      <description>这两天搭建了两个同类型的网站，我这里就说网站a和网站b吧，这里也假设他们的目录对应为/home/wwwroot/a、/home/wwwroot/a。后面想了一下为了维护方便，决定把b的网站目录绑定到a域名的二级目录，即：a.com/b/。
+这里可能有些朋友要问，为什么不直接把b目录移动到a的目录之下。我没有这么做是因为b的网页文件是一个配套的程序生成的，而我移动文件，需要把配套的程序和配置文件一起移动到a目录之下，这样等于把源程序、配置文件、以及其他目录公开暴露无疑，虽然可以通过通过配置nginx的方式屏蔽下载源文件及屏蔽访问指定的目录，但还是略显麻烦。
+所以在无奈之下，必须尝试原先设想的的思路是否可行，下面我就记录一步一步修改配置文件的过程，
+原来的网页配置文件：
+ server { listen 80; #listen [::]:80; server_name a.com ; index index.html index.htm index.php default.html default.htm default.php; root /home/wwwroot/a; }  添加设想的配置1：
+ server { listen 80; #listen [::]:80; server_name a.com ; index index.html index.htm index.php default.html default.htm default.php; root /home/wwwroot/a; location /b { root /home/wwwroot/b; } }  配置生效后，直接访问a.com/b，页面直接显示404。
+紧接着参考了笛声博客的《Nginx的location规则迷之匹配》这篇文章后，考虑到可能是location的优先级问题，直接在location处添加=提升优先级到最高，修改配置文件为：
+ server { listen 80; #listen [::]:80; server_name a.com ; index index.html index.htm index.php default.html default.</description>
+    </item>
+    
+    <item>
+      <title>Nginx利用filebrowser管理vps中的文件</title>
+      <link>https://fffou.com/post/20010501/</link>
+      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/20010501/</guid>
+      <description>站点环境用的是LNMP一键包，并没有像大家一样用宝塔、AMH之类的面板程序，一来是因为vps配置较低，二来用一键包个人认为比较安全，但是遇到需要管理vps中的文件的时候就比较麻烦。不过还好，可以配合filebrowser管理vps的文件。
+filebrowser 功能介绍 filebrowser是用Go语言开发的文件管理器，不需要第三方地依赖，除了配合Nginx、Apache、Caddy等Web服务器使用外，也可单独作为Web文件管理器使用，功能上支持简单的音视频播放，分享文件方面提供永久链接或临时链接（按时、分、秒）进行分享，并支持在下载页面展示当前下载页面的二维码，非常实用。站长我喜欢用filebrowser编辑一些配置文件，避免了了SSH终端用vi编辑文件的痛苦。
+安装filebrowser 前面说了filebrowser的功能，现在是分享搭建filebrowser的步骤，我用的linux环境是Debian 64位系统，所以这里以Debian 64位系统作为本文的系统基础，大家可做做参考。
+1.切换到home目录
+ cd /home  2.SSh连接vps，访问filebrowse托管平台github的releases 页面，下载对应系统版本的filebrowser文件，并解压文件。
+ wget https://github.com/filebrowser/filebrowser/releases/download/v2.0.16/linux-amd64-filebrowser.tar.gz tar -xzvf linux-amd64-filebrowser.tar.gz  3.赋予filebrowser运行权限
+ chmod +x ./filebrowser  4.指定端口运行一遍filebrowser，这样filebrowser就会在同目录下生成同名配置文件filebrowser.db。因为Nginx占用了80、433端口，所以这里我指定了其他端口，你可以按照自己的需求指定自己的端口，本文以25557端口为例
+ ./filebrowser -p 25557 -a 0.0.0.0  5.访问filebrowser，并更改默认的密码，默认账户密码皆为admin
+ http://ip:25557  6.终止filebrowser运行
+ CTRL+C  7.设置filebrowser为系统服务
+ cat &amp;lt;&amp;lt; EOF &amp;gt; /lib/systemd/system/filebrowser.service  8.接着输入下列配置
+ [Unit] Description=Filebrowser Client Service After=network.target [Service] Type=simple Restart=always RestartSec=5s ExecStart=/home/filebrowser -p 25557 -a 0.0.0.0 ExecReload=/home/filebrowser reload -p 25557 -a 0.</description>
+    </item>
+    
+    <item>
+      <title>LNMP升级Nginx和Openssl到最新版</title>
+      <link>https://fffou.com/post/1991801/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/1991801/</guid>
+      <description>&lt;p&gt;好吧，强迫症又犯了。是该折腾点什么，但是站点是静态站点，能折腾的地方没有动态站点的多，就想着把服务器的LNMP一键包的底层升级一下，于是查看了Nginx和Openssl的版本&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

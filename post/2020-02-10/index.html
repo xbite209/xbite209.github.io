@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="dns-prefetch" href="//creativecommons.org" />
+<link rel="dns-prefetch" href="//www.w3.org/" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="Keywords" content="浮游,浮游笔记,笔记,博客,记录">
+    <meta name="description" content="专注于思考、记录与分享">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#e0c684">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="利用vps配合aria2以及AriaNg搭建自己的离线下载服务器">
+<meta itemprop="description" content="博客所使用的vps已经用了有两年了，而博客还是静态的，vps内存占用也就比较低，还有少的可怜的访客，每个月跑的流量还不到vps规定流量上限的零头，这样看来vps还可以搭建其他服务玩玩。
+因为经常需要下载国外的资源，每次下载都比较慢，所以首先想到是通过搭建离线下载服务器来中转文件，以加快下载速度。
+看了一下网上现成的脚本，首先看到小z的CCAA的Docker部署，奈何这个CCAA整合了AriaNg &#43; Aria2 &#43; FileBrowser ，而我服务器已经安装了Filebrowser，自己有小小的洁癖，不喜欢重复安装Filebrowser，也不怎么喜欢这样部署Docker，确切地说我更喜欢用一台vps专们用来跑Docker服务。
+既然不用Docker部署，就只能考虑手动安装，但是网上很多现成的手动安装教程，我安装了几次都不能成功，后面自己换了一些思路，折腾了好久才成功，为了方便下次折腾，特意记录下这篇文章。
+准备 准备三个域名：域名A、域名B、域名C
+我这里环境：Debian、军哥的LNMP一键包
+安装步骤 1.安装Aria2
+ apt-get update apt-get upgrade apt-get install aria2  2.测试Aria2是否安装成功：
+ aria2 -v  出现下列内容表示安装成功：
+ aria2 version 1.34.0 Copyright (C) 2006, 2017 Tatsuhiro Tsujikawa This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.">
+
+
+<meta itemprop="datePublished" content="2020-02-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-02-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="765">
+
+
+
+<meta itemprop="keywords" content="aria2,离线下载," />
+<meta property="og:title" content="利用vps配合aria2以及AriaNg搭建自己的离线下载服务器" />
+<meta property="og:description" content="博客所使用的vps已经用了有两年了，而博客还是静态的，vps内存占用也就比较低，还有少的可怜的访客，每个月跑的流量还不到vps规定流量上限的零头，这样看来vps还可以搭建其他服务玩玩。
+因为经常需要下载国外的资源，每次下载都比较慢，所以首先想到是通过搭建离线下载服务器来中转文件，以加快下载速度。
+看了一下网上现成的脚本，首先看到小z的CCAA的Docker部署，奈何这个CCAA整合了AriaNg &#43; Aria2 &#43; FileBrowser ，而我服务器已经安装了Filebrowser，自己有小小的洁癖，不喜欢重复安装Filebrowser，也不怎么喜欢这样部署Docker，确切地说我更喜欢用一台vps专们用来跑Docker服务。
+既然不用Docker部署，就只能考虑手动安装，但是网上很多现成的手动安装教程，我安装了几次都不能成功，后面自己换了一些思路，折腾了好久才成功，为了方便下次折腾，特意记录下这篇文章。
+准备 准备三个域名：域名A、域名B、域名C
+我这里环境：Debian、军哥的LNMP一键包
+安装步骤 1.安装Aria2
+ apt-get update apt-get upgrade apt-get install aria2  2.测试Aria2是否安装成功：
+ aria2 -v  出现下列内容表示安装成功：
+ aria2 version 1.34.0 Copyright (C) 2006, 2017 Tatsuhiro Tsujikawa This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fffou.com/post/2020-02-10/" />
+<meta property="article:published_time" content="2020-02-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-10T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="利用vps配合aria2以及AriaNg搭建自己的离线下载服务器"/>
+<meta name="twitter:description" content="博客所使用的vps已经用了有两年了，而博客还是静态的，vps内存占用也就比较低，还有少的可怜的访客，每个月跑的流量还不到vps规定流量上限的零头，这样看来vps还可以搭建其他服务玩玩。
+因为经常需要下载国外的资源，每次下载都比较慢，所以首先想到是通过搭建离线下载服务器来中转文件，以加快下载速度。
+看了一下网上现成的脚本，首先看到小z的CCAA的Docker部署，奈何这个CCAA整合了AriaNg &#43; Aria2 &#43; FileBrowser ，而我服务器已经安装了Filebrowser，自己有小小的洁癖，不喜欢重复安装Filebrowser，也不怎么喜欢这样部署Docker，确切地说我更喜欢用一台vps专们用来跑Docker服务。
+既然不用Docker部署，就只能考虑手动安装，但是网上很多现成的手动安装教程，我安装了几次都不能成功，后面自己换了一些思路，折腾了好久才成功，为了方便下次折腾，特意记录下这篇文章。
+准备 准备三个域名：域名A、域名B、域名C
+我这里环境：Debian、军哥的LNMP一键包
+安装步骤 1.安装Aria2
+ apt-get update apt-get upgrade apt-get install aria2  2.测试Aria2是否安装成功：
+ aria2 -v  出现下列内容表示安装成功：
+ aria2 version 1.34.0 Copyright (C) 2006, 2017 Tatsuhiro Tsujikawa This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>利用vps配合aria2以及AriaNg搭建自己的离线下载服务器</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/style.css">
+	
+
+
+				
+
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://fffou.com">浮游笔记</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://fffou.com/">主页</a>
+				<a href="https://fffou.com/about/">关于</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://fffou.com/">主页</a></li>
+			<li><a href="https://fffou.com/about/">关于</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Feb 10, 2020</span></div>
+				<h1>利用vps配合aria2以及AriaNg搭建自己的离线下载服务器</h1>
+			</header>
+			<div class="content">
+				
+
+<p>博客所使用的vps已经用了有两年了，而博客还是静态的，vps内存占用也就比较低，还有少的可怜的访客，每个月跑的流量还不到vps规定流量上限的零头，这样看来vps还可以搭建其他服务玩玩。</p>
+
+<p>因为经常需要下载国外的资源，每次下载都比较慢，所以首先想到是通过搭建离线下载服务器来中转文件，以加快下载速度。</p>
+
+<p>看了一下网上现成的脚本，首先看到<code>小z</code>的<code>CCAA</code>的Docker部署，奈何这个<code>CCAA</code>整合了AriaNg + Aria2 + FileBrowser ，而我服务器已经安装了Filebrowser，自己有小小的洁癖，不喜欢重复安装Filebrowser，也不怎么喜欢这样部署Docker，确切地说我更喜欢用一台vps专们用来跑Docker服务。</p>
+
+<p>既然不用Docker部署，就只能考虑手动安装，但是网上很多现成的手动安装教程，我安装了几次都不能成功，后面自己换了一些思路，折腾了好久才成功，为了方便下次折腾，特意记录下这篇文章。</p>
+
+<h3 id="准备">准备<a href="#准备" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>准备三个域名：域名A、域名B、域名C</p>
+
+<p>我这里环境：Debian、军哥的LNMP一键包</p>
+
+<h3 id="安装步骤">安装步骤<a href="#安装步骤" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>1.安装Aria2</p>
+
+<pre><code> apt-get update  
+
+ apt-get upgrade  
+
+ apt-get install aria2
+</code></pre>
+
+<p>2.测试Aria2是否安装成功：</p>
+
+<pre><code> aria2 -v  
+</code></pre>
+
+<p>出现下列内容表示安装成功：</p>
+
+<pre><code> aria2 version 1.34.0
+ Copyright (C) 2006, 2017 Tatsuhiro Tsujikawa
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ ** Configuration **
+ Enabled Features: Async DNS, BitTorrent, Firefox3 Cookie, GZip, HTTPS, Message Digest, Metalink, XML-RPC, SFTP
+ Hash Algorithms: sha-1, sha-224, sha-256, sha-384, sha-512, md5, adler32
+ Libraries: zlib/1.2.11 libxml2/2.9.4 sqlite3/3.27.2 GnuTLS/3.6.6 nettle GMP/6.1.2 c-ares/1.14.0 libssh2/1.8.0
+ Compiler: gcc 8.3.0
+ built by  x86_64-pc-linux-gnu
+ on        Feb 28 2019 15:36:13
+ System: Linux 4.19.0-5-amd64 #1 SMP Debian 4.19.37-5+deb10u2 (2019-08-08) x86_64
+
+ Report bugs to https://github.com/aria2/aria2/issues
+ Visit https://aria2.github.io/  
+</code></pre>
+
+<p>3.为域名A、域名B、域名C新建主机配置</p>
+
+<p>这里阐述一下域名A、域名B、域名C的作用:</p>
+
+<pre><code> 域名A用作：Aria2的Webui界面
+ 域名B用作：反代Aria2的RPC监听端口
+ 域名C的作用：Aria2下载好的文件，展示在网页，方便下载 
+ 简单的说就是我们访问Aria2的网页界面的时候需要用到域名A，然后在Aria2网页界面设置下载配置时候需要填写域名B，而下载好的文件，我们可以直接在浏览器打开域名C的页面进行下载  
+</code></pre>
+
+<p>现在明白了域名A、域名B、域名C的作用和用途，下面就先开始着手三个域名的配置。分别新建域名A、域名B、域名C对应的主机生成对应域名证书，并设置强制跳转80到443。LNMP一键包很简单的，我这里就懒得去写了。下面进入三个域名详细配置：</p>
+
+<h4 id="域名a配置aria2的webui-ariang">域名A配置Aria2的Webui：AriaNg<a href="#域名a配置aria2的webui-ariang" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>进入域名A的网页目录：</p>
+
+<pre><code> cd /home/wwwroot/域名A  
+</code></pre>
+
+<p>去<a href="https://link.fffou.com/go/AriaNg/">AriaNg的github下载页</a>下载AriaNg：</p>
+
+<pre><code> 以下脚本是示例：
+
+ ###下载AriaNg：
+ wget AriaNg-xxx.zip
+
+ ###解压AriaNg： 
+ unzip AriaNg-xxx.zip  
+
+ ###进入AriaNg目录：  
+ cd AriaNg-xxx
+
+ ###复制全部文件到域名A网页根目录：     
+ mv *  ../
+
+ ###返回域名A网页根目录，并删除AriaNg目录、AriaNg下载的zip文件    
+ cd ../      
+ rm -rf AriaNg-xxx.zip AriaNg-xxx  
+</code></pre>
+
+<h4 id="配置aria2">配置Aria2<a href="#配置aria2" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>在aria目录下建立两个文件 aria2.conf aria2.session，我这里为了方便直接新建在root目录了</p>
+
+<p>创建aria2目录并新建aria2.conf文件：</p>
+
+<pre><code> cd /root &amp;&amp; mkdir aria2 &amp;&amp; cd aria2 &amp;&amp; vi aria2.conf  
+</code></pre>
+
+<p><code>注意</code>:另外你需要自己手动创建一个空的aria2.session文件</p>
+
+<p>在<code>aria2.conf</code>文件中写入下面的配置：</p>
+
+<pre><code> ## '#'开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##
+ ## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##
+
+ ## 文件保存相关 ##
+
+ # 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置
+ dir=/root/Downloads
+ # 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M
+ #disk-cache=32M
+ # 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc
+ # 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc
+ # falloc和trunc则需要文件系统和内核支持
+ # NTFS建议使用falloc, EXT3/4建议trunc, MAC 下需要注释此项
+ #file-allocation=none
+ # 断点续传
+ continue=true
+
+ ## 下载连接相关 ##
+
+ # 最大同时下载任务数, 运行时可修改, 默认:5
+ #max-concurrent-downloads=5
+ # 同一服务器连接数, 添加时可指定, 默认:1
+ max-connection-per-server=5
+ # 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M
+ # 假定size=10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载
+ min-split-size=10M
+ # 单个任务最大线程数, 添加时可指定, 默认:5
+ #split=5
+ # 整体下载速度限制, 运行时可修改, 默认:0
+ #max-overall-download-limit=0
+ # 单个任务下载速度限制, 默认:0
+ #max-download-limit=0
+ # 整体上传速度限制, 运行时可修改, 默认:0
+ #max-overall-upload-limit=0
+ # 单个任务上传速度限制, 默认:0
+ #max-upload-limit=0
+ # 禁用IPv6, 默认:false
+ #disable-ipv6=true
+ # 连接超时时间, 默认:60
+ #timeout=60
+ # 最大重试次数, 设置为0表示不限制重试次数, 默认:5
+ #max-tries=5
+ # 设置重试等待的秒数, 默认:0
+ #retry-wait=0
+
+ ## 进度保存相关 ##
+
+ # 从会话文件中读取下载任务
+ input-file=/root/aria2/aria2.session
+ # 在Aria2退出时保存`错误/未完成`的下载任务到会话文件
+ save-session=/root/aria2/aria2.session
+ # 定时保存会话, 0为退出时才保存, 需1.16.1以上版本, 默认:0
+ #save-session-interval=60
+
+ ## RPC相关设置 ##
+
+ # 启用RPC, 默认:false
+ enable-rpc=true
+ # 允许所有来源, 默认:false
+ rpc-allow-origin-all=true
+ # 允许非外部访问, 默认:false
+ rpc-listen-all=true
+ # 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同
+ #event-poll=select
+ # RPC监听端口, 端口被占用时可以修改, 默认:6800
+ #rpc-listen-port=6800
+ # 设置的RPC授权令牌, v1.18.4新增功能, 取代 --rpc-user 和 --rpc-passwd 选项
+ rpc-secret=你的密码
+ # 是否启用 RPC 服务的 SSL/TLS 加密,
+ # 启用加密后 RPC 服务需要使用 https 或者 wss 协议连接
+ #rpc-secure=true
+ # 在 RPC 服务中启用 SSL/TLS 加密时的证书文件,
+ # 使用 PEM 格式时，您必须通过 --rpc-private-key 指定私钥
+ #rpc-certificate=/path/to/certificate.pem
+ # 在 RPC 服务中启用 SSL/TLS 加密时的私钥文件
+ #rpc-private-key=/path/to/certificate.key
+
+ ## BT/PT下载相关 ##
+
+ # 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true
+ #follow-torrent=true
+ # BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999
+ listen-port=51413
+ # 单个种子最大连接数, 默认:55
+ #bt-max-peers=55
+ # 打开DHT功能, PT需要禁用, 默认:true
+ enable-dht=false
+ # 打开IPv6 DHT功能, PT需要禁用
+ #enable-dht6=false
+ # DHT网络监听端口, 默认:6881-6999
+ #dht-listen-port=6881-6999
+ # 本地节点查找, PT需要禁用, 默认:false
+ #bt-enable-lpd=false
+ # 种子交换, PT需要禁用, 默认:true
+ enable-peer-exchange=false
+ # 每个种子限速, 对少种的PT很有用, 默认:50K
+ #bt-request-peer-speed-limit=50K
+ # 客户端伪装, PT需要
+ peer-id-prefix=-TR2770-
+ user-agent=Transmission/2.77
+ # 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0
+ seed-ratio=0
+ # 强制保存会话, 即使任务已经完成, 默认:false
+ # 较新的版本开启后会在任务完成后依然保留.aria2文件
+ #force-save=false
+ # BT校验相关, 默认:true
+ #bt-hash-check-seed=true
+ # 继续之前的BT任务时, 无需再次校验, 默认:false
+ bt-seed-unverified=true
+ # 保存磁力链接元数据为种子文件(.torrent文件), 默认:false
+ bt-save-metadata=true  
+</code></pre>
+
+<p>以下6项需要修改：</p>
+
+<pre><code> 1.rpc-secret=你的密码，把‘你的密码’改为你的密码即可
+ 2.dir=/root/Downloads 将路径改为你的下载目录
+ 3.input-file=/root/aria2/aria2.session改为你的aria2.session路经
+ 4.save-session=/root/aria2/aria2.session改为你的aria2.session路经
+ 5.#rpc-secure=true 去掉#
+ 6.#rpc-certificate=/path/to/certificate.pem 去掉#
+   #rpc-private-key=/path/to/certificate.key 去掉#
+ 并把rpc-certificate、rpc-private-key的证书和密钥设置为域名A证书和密钥所在的目录地址  
+</code></pre>
+
+<h4 id="配置aria2为系统服务并开机启动">配置Aria2为系统服务并开机启动：<a href="#配置aria2为系统服务并开机启动" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<pre><code> cat &lt;&lt; EOF &gt; /lib/systemd/system/aria2.service  
+</code></pre>
+
+<p>输入下面的配置：</p>
+
+<pre><code> [Unit]
+ Description=Aria2 Client Service
+ After=network.target
+
+ [Service]
+ Type=simple
+ Restart=always
+ RestartSec=5s
+ ExecStart=/usr/bin/aria2c --conf-path=/root/aria2/aria2.conf –D
+
+ [Install]
+ WantedBy=multi-user.target  
+</code></pre>
+
+<p>开机启动Aria2：</p>
+
+<pre><code> systemctl enable aria2  
+</code></pre>
+
+<p>启用Aria2：</p>
+
+<pre><code> systemctl start aria2  
+</code></pre>
+
+<h4 id="域名b配置-反代aria2的rpc监听端口">域名B配置：反代Aria2的RPC监听端口<a href="#域名b配置-反代aria2的rpc监听端口" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>修改域名B的网页conf配置文件：</p>
+
+<pre><code> vi /usr/local/nginx/conf/vhost/域名B.conf  
+</code></pre>
+
+<p>添加反代配置，注意看下面注释的部分：</p>
+
+<pre><code> server
+     {
+         listen 80;
+         #listen [::]:80;
+         server_name 域名B ;
+         rewrite ^(.*)$ https://$host$1 permanent;
+
+     }
+
+ server
+     {
+         listen 443 ssl http2;
+         #listen [::]:443 ssl http2;
+         server_name 域名B ;
+         index index.html index.htm index.php default.html default.htm default.php;
+
+         ssl_certificate /usr/local/nginx/conf/ssl/域名B/fullchain.cer;
+         ssl_certificate_key /usr/local/nginx/conf/ssl/域名B/域名B.key;
+         ssl_session_timeout 5m;
+         ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+         ssl_prefer_server_ciphers on;
+         ssl_ciphers &quot;TLS13-AES-256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-128-GCM-SHA256:TLS13-AES-128-CCM-8-SHA256:TLS13-AES-128-CCM-SHA256:EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5&quot;;
+         ssl_session_cache builtin:1000 shared:SSL:10m;
+         # openssl dhparam -out /usr/local/nginx/conf/ssl/dhparam.pem 2048
+         ssl_dhparam /usr/local/nginx/conf/ssl/dhparam.pem;
+
+         include rewrite/none.conf;
+         #error_page   404   /404.html;
+
+         include enable-php.conf;
+
+ # 这是注释的部分，我们需要添加这里的配置文件  
+ location ^~ /jsonrpc {
+ proxy_set_header X-Real-IP $remote_addr;
+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+ proxy_set_header Host $http_host;
+ proxy_set_header X-NginX-Proxy true;
+ proxy_http_version 1.1;
+ proxy_set_header Connection &quot;&quot;;
+ proxy_pass_header X-Transmission-Session-Id;
+ add_header Front-End-Https on;
+
+ proxy_pass https://127.0.0.1:6800/jsonrpc;
+ }
+
+
+     }  
+</code></pre>
+
+<h4 id="让下载目录的文件通过域名c的网页方式展示出来">让下载目录的文件通过域名C的网页方式展示出来<a href="#让下载目录的文件通过域名c的网页方式展示出来" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>编辑域名C的网页conf配置文件，开启nginx的文件展示功能：</p>
+
+<pre><code> vi /usr/local/nginx/conf/vhost/域名C.conf  
+</code></pre>
+
+<p>注意修改下面注释的部分：</p>
+
+<pre><code> server
+     {
+         listen 80;
+         #listen [::]:80;
+         server_name 域名C ;
+         rewrite ^(.*)$ https://$host$1 permanent;
+     }
+
+ server
+     {
+         listen 443 ssl http2;
+         #listen [::]:443 ssl http2;
+         server_name 域名C ;
+         index index.html index.htm index.php default.html default.htm default.php;
+
+         ssl_certificate /usr/local/nginx/conf/ssl/域名C/fullchain.cer;
+         ssl_certificate_key /usr/local/nginx/conf/ssl/域名C/域名C.key;
+         ssl_session_timeout 5m;
+         ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+         ssl_prefer_server_ciphers on;
+         ssl_ciphers &quot;TLS13-AES-256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-128-GCM-SHA256:TLS13-AES-128-CCM-8-SHA256:TLS13-AES-128-CCM-SHA256:EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5&quot;;
+         ssl_session_cache builtin:1000 shared:SSL:10m;
+         # openssl dhparam -out /usr/local/nginx/conf/ssl/dhparam.pem 2048
+         ssl_dhparam /usr/local/nginx/conf/ssl/dhparam.pem;
+
+         include rewrite/none.conf;
+         #error_page   404   /404.html;
+
+         include enable-php.conf;
+
+ # 这是注释部分，我们需要添加这里的配置文件
+ location / {   
+         root /root/Downloads;  # 修改为你配置文件中的下载目录
+         autoindex on;                            
+         autoindex_exact_size off;            
+         autoindex_localtime on;       
+ }
+
+     }
+</code></pre>
+
+<h4 id="重启nginx使配置生效">重启Nginx使配置生效<a href="#重启nginx使配置生效" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<pre><code> service nginx restart 或者 lnmp restart  
+</code></pre>
+
+<p>4.进入Aria2的网页界面Ariang配置Aria2：</p>
+
+<p>浏览器打开域名A，点击 <code>AriaNg 设置</code>,选定右侧的<code>RPC (域名A:443)</code>，在<code>Aria2 RPC 地址</code>的第一个空格输入 <code>域名B</code>，第二空格输入端口：<code>443</code>,第三个空格不做改动。<br />
+<code>Aria2 RPC 协议</code>设置为 <code>https</code>,<code>Aria2 RPC Http 请求方法</code>设置为<code>POST</code>,在<code>Aria2 RPC 密钥</code>处输入你设定的密码。</p>
+
+<p>设置完后右上角会出现<code>配置已经修改, 请重新加载页面使其生效.</code>弹窗，点击<code>重新加载 AriaNg</code>,成功连接aria2服务，开始体验自己搭建的离线下载服务。</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://fffou.com/tags/aria2">aria2</a></span><span class="tag"><a href="https://fffou.com/tags/%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD">离线下载</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-02-10 08:00 &#43;0800</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://fffou.com/post/2020-05-14/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>为hugo主题hermit归档页面增加分页功能</span>
+			</a>
+			<a class="prev-post" href="https://fffou.com/post/20010501/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Nginx利用filebrowser管理vps中的文件</span>
+			</a>
+		</div>
+		<div id="comments" class="thin"><div id="comment"></div>
+        <script>
+        </script>
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2021 <a href="https://fffou.com">浮游笔记</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://fffou.com/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbite209/web_source/Myblog/js/bundle.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>方案 on 浮游笔记</title>
+    <link>https://fffou.com/tags/%E6%96%B9%E6%A1%88/</link>
+    <description>Recent content in 方案 on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/%E6%96%B9%E6%A1%88/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Chrome手机版调校方案</title>
+      <link>https://fffou.com/post/194151/</link>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/194151/</guid>
+      <description>&lt;p&gt;手机chrome浏览器挺好用，也挺干净。安装好后调教调教就挺好用。下面是收集的一些调教方案。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

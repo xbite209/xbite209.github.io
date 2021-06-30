@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>chrome on 浮游笔记</title>
+    <link>https://fffou.com/tags/chrome/</link>
+    <description>Recent content in chrome on 浮游笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 16 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fffou.com/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>不用任何插件实现chrome内核浏览器切换到指定的ua</title>
+      <link>https://fffou.com/post/199161/</link>
+      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/199161/</guid>
+      <description>&lt;p&gt;今天测试站点，需要测试指定的ua访问站点，本来想到用插件实现。后面想想还是算了，因为发现解决这个问题，只需要新建一个脚本文件就可以了，就不用下载第三方插件了。。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>chrome开启https和www显示</title>
+      <link>https://fffou.com/post/1981701/</link>
+      <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/1981701/</guid>
+      <description>&lt;p&gt;群里的网友说最新的chrome默认不显示https和www信息，我看了一下还真的是。按照谷歌chrome的一贯套路，有些关闭的、或是隐藏的功能可以通过&lt;code&gt;chrome://flags/&lt;/code&gt;重新开启起来,后面找了一下，还真找到可以设置的项。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Chrome手机版调校方案</title>
+      <link>https://fffou.com/post/194151/</link>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/194151/</guid>
+      <description>&lt;p&gt;手机chrome浏览器挺好用，也挺干净。安装好后调教调教就挺好用。下面是收集的一些调教方案。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Chrome类浏览器汉化教程</title>
+      <link>https://fffou.com/post/edge/</link>
+      <pubDate>Tue, 26 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fffou.com/post/edge/</guid>
+      <description>&lt;p&gt;昨天看到it之家，看到了微软基于chroium的浏览器有泄露版的下载。作为软粉，怀着忐忑的心情下了安装包，因为我用的不是win10，因为Edge都是win10下产生的，我担心微软没有做向下兼容的准备。
+最终我的顾虑打消了，浏览器在我的win8.1用的好好的。虽然是测试版，但各方面都挺满意，据网友说比chrome还省内存。其实我用了一下，感觉还好，也不知道是不是错觉，对微软的优化能力还是抱有一丝的期待自行的。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

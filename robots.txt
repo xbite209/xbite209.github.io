@@ -1,0 +1,8 @@
+## -------------------------------------
+## robots.txt for https://fffou.com
+## fileEncoding = UTF-8
+## -------------------------------------
+
+User-Agent: *
+Allow: /
+Sitemap: https://fffou.com/sitemap.xml
